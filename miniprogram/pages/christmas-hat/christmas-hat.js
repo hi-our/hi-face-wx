@@ -1,6 +1,8 @@
 // pages/christmas-hat/christmas-hat.js
 const utilsCommon = require('../../utils/common')
 const promisify = require('../../utils/promisify')
+import { fsmReadFile } from '../../utils/canvas-drawing';
+import { cloudCallFunction } from '../../utils/fetch';
 
 const regeneratorRuntime = require('../../utils/regenerator-runtime/runtime.js')
 
@@ -244,13 +246,16 @@ Page({
     })
 
     try {
-
-      const resImage = await wx.compressImage({
+      const compressImage = promisify(wx.compressImage)
+      const resImage = await compressImage({
         src: cutImageSrc, // 图片路径
         quality: 10 // 压缩质量
       })
 
       let oldTime = Date.now()
+
+      console.log('object :', fsmReadFile);
+      // const fsmReadFile = promisify()
 
       let { data: base64Main } = await fsmReadFile({
         filePath: resImage.tempFilePath,
