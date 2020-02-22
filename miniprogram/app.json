@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/christmas-hat/christmas-hat",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
