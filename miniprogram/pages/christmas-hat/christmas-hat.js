@@ -1,11 +1,14 @@
 // pages/christmas-hat/christmas-hat.js
+import utilsCommon from '../../utils/common';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    DPR_CANVAS_SIZE: 300,
+    pixelRatio: utilsCommon.getSystemInfo().pixelRatio
   },
 
   /**
