@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "圣诞帽",
-  "usingComponents": {}
+  "disableScroll": true,
+  "usingComponents": {
+    "image-cropper": "../../components/image-cropper/image-cropper"
+  }
 }

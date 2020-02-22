@@ -46,7 +46,7 @@
           <button class="button-avatar" type="default" data-way="avatar" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
             使用头像
           </button>
-          <button class="button-camera" type="default" data-way="camera" bindtap="onChooseImage" data-e-tap-so="this" data-e-tap-a-a="camera">
+          <button class="button-camera" type="default" data-way="camera" bindtap="onChooseImage">
             使用相机
           </button>
         </view>
@@ -54,7 +54,11 @@
     </block>
   </view>
   <view class="cropper-wrap" hidden="{{!originSrc}}">
-    <!-- <taro-cropper id="fgzzz" compid="{{$compid__27}}"></taro-cropper> -->
+    <image-cropper id="image-cropper" limit_move="{{true}}" disable_rotate="{{true}}"  disable_width="{{true}}"  disable_height="{{true}}" width="{{DPR_CANVAS_SIZE}}" height="{{DPR_CANVAS_SIZE}}" imgSrc="{{originSrc}}" bindload="cropperLoad" bindimageload="cropperIoadImage" bindtapcut="onCropperCut"></image-cropper>
+    <view class="cropper-bottom">
+      <view class="cropper-bottom-btn" bindtap="onCutCancel">取消</view>
+      <view class="cropper-bottom-btn"  bindtap="onCutSubmit">确认</view>
+    </view>
   </view>
   <block>
     <block wx:if="{{cutImageSrc}}">

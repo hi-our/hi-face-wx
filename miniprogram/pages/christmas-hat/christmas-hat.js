@@ -1,6 +1,8 @@
 // pages/christmas-hat/christmas-hat.js
-import utilsCommon from '../../utils/common'
-import promisify from '../../utils/promisify';
+const utilsCommon = require('../../utils/common')
+const promisify = require('../../utils/promisify')
+
+const regeneratorRuntime = require('../../utils/regenerator-runtime/runtime.js')
 
 const { windowWidth, pixelRatio } = utilsCommon.getSystemInfo()
 const CANVAS_SIZE = 300
@@ -71,6 +73,7 @@ Page({
    */
   data: {
     DPR_CANVAS_SIZE: 300,
+    DPR_CANVAS_SIZE: DPR_CANVAS_SIZE,
     pixelRatio: utilsCommon.getSystemInfo().pixelRatio,
     shapeList: [
       resetState()
@@ -90,6 +93,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.cropper = this.selectComponent("#image-cropper");
 
   },
 
@@ -141,21 +145,132 @@ Page({
   onShareAppMessage: function () {
 
   },
-  onChooseImage(way){
+  onChooseImage(event){
 
     // console.log('event :', event);
     // TODO 兼容写法
-    // let way = event.target.dataset.way || 'album'
+
+    let way = event.target.dataset.way || 'album'
     const chooseImage = promisify(wx.chooseImage)
+    console.log('way :', way, chooseImage);
     chooseImage({
       count: 1,
-      sourceType: [way],
-    }).then(res => {
-      this.setData({
-        originSrc: res.tempFilePaths[0]
-      });
-    }).catch(error => {
-      console.log('error :', error);
+      sourceType: [way]
     })
+      .then(res => {
+        this.setData({
+          originSrc: res.tempFilePaths[0]
+        });
+      })
+      .catch(error => {
+        console.log('error :', error);
+      })
+  },
+  cropperLoad() {
+
+  },
+  cropperIoadImage(event) {
+    let imageInfo = event.detail
+    console.log('cropperIoadImage imageInfo :', imageInfo);
+    this.cropper.imgReset()
+
+  },
+  onCropperCut(event) {
+    let imageInfo = event.detail
+    let cutImageSrc = imageInfo.url
+    console.log('cutImageSrc :', cutImageSrc);
+    this.setData({
+      cutImageSrc: cutImageSrc,
+      originSrc: ''
+    })
+    this.onAnalyzeFace(cutImageSrc)
+    // console.log('onCut imageInfo :', imageInfo);
+    
+  },
+  onCutSubmit(){
+    let that = this
+    this.cropper.getImg((detail) => {
+      that.onCropperCut({
+        detail: detail
+      })
+    });
+  },
+  onCutCancel() {
+    this.setData({
+      originSrc: ''
+    })
+  },
+  async onGetUserInfo (e) {
+
+    if (e.detail.userInfo) {
+      //用户按了允许授权按钮
+      // TODO写法，用于更换图片
+      wx.showToast({
+        icon: 'none',
+        title: '获取头像...'
+      })
+      try {
+        let avatarUrl = e.detail.userInfo.avatarUrl
+        if (avatarUrl) {
+          this.onCropperCut({
+            detail: {
+              url: avatarUrl
+            }
+          })
+        }
+
+      } catch (error) {
+        console.log('avatarUrl download error:', error);
+        wx.showToast({
+          icon: 'none',
+          title: '获取失败，请使用相册'
+        })
+      }
+    } else {
+      //用户按了拒绝按钮
+    }
+  },
+  async onAnalyzeFace  (cutImageSrc) {
+    if (!cutImageSrc) return
+
+    console.log('cutImageSrc :', cutImageSrc);
+
+    wx.showLoading({
+      title: '识别中...'
+    })
+
+    this.setData({
+      isShowMask: false,
+    })
+
+    try {
+
+      const resImage = await wx.compressImage({
+        src: cutImageSrc, // 图片路径
+        quality: 10 // 压缩质量
+      })
+
+      let oldTime = Date.now()
+
+      let { data: base64Main } = await fsmReadFile({
+        filePath: resImage.tempFilePath,
+        encoding: 'base64',
+      })
+
+      const couldRes = await cloudCallFunction({
+        name: 'analyze-face',
+        data: {
+          base64Main
+        }
+      })
+
+      console.log(((Date.now() - oldTime) / 1000).toFixed(1) + '秒')
+
+      return couldRes
+    } catch (error) {
+      
+    }
+
+    // try {
   }
 })

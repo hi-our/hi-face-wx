@@ -351,3 +351,30 @@ position absolute {
   background: url("https://n1image.hjfile.cn/res7/2019/01/10/b18454c07e26f34cbec2fb10474c4a6c.png") no-repeat center/72rpx 76rpx;
 }
 
+.cropper-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+
+.cropper-bottom {
+  position: absolute;
+  width:100%;
+  bottom:50rpx;
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  flex-wrap:wrap;
+  height: 210rpx;
+}
+
+.cropper-bottom-btn {
+  margin: 0 40px;
+  font-size: 40rpx;
+  line-height: 2;
+  color: #fff;
+}
