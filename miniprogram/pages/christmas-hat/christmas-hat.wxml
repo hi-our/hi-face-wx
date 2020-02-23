@@ -57,7 +57,7 @@
     </block>
   </view>
   <view class="cropper-wrap" hidden="{{!originSrc}}">
-    <image-cropper id="image-cropper"  export_scale="{{pixelRatio}}" limit_move="{{true}}" disable_rotate="{{true}}"  disable_width="{{true}}"  disable_height="{{true}}" width="{{DPR_CANVAS_SIZE}}" height="{{DPR_CANVAS_SIZE}}" imgSrc="{{originSrc}}" bindload="cropperLoad" bindimageload="cropperIoadImage" bindtapcut="onCropperCut"></image-cropper>
+    <image-cropper id="image-cropper"  export_scale="{{pixelRatio}}" limit_move="{{true}}" disable_rotate="{{true}}"  disable_width="{{true}}"  disable_height="{{true}}" width="{{DPR_CANVAS_SIZE}}" height="{{DPR_CANVAS_SIZE}}" imgSrc="{{originSrc}}" bindload="cropperLoad" bindimageload="cropperLoadImage" bindtapcut="onCropperCut"></image-cropper>
     <view class="cropper-bottom">
       <view class="cropper-bottom-btn" bindtap="onCutCancel">取消</view>
       <view class="cropper-bottom-btn"  bindtap="onCutSubmit">确认</view>

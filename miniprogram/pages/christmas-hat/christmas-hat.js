@@ -170,10 +170,8 @@ Page({
         console.log('error :', error);
       })
   },
-  cropperLoad() {
-
-  },
-  cropperIoadImage(event) {
+  cropperLoad() {},
+  cropperLoadImage(event) {
     // let imageInfo = event.detail
     this.cropper.imgReset()
 
@@ -377,6 +375,128 @@ Page({
     this.setData({
       currentJiayouId: jiayouId
     })
+  },
+
+
+  // 图形移动区域
+
+  removeShape(e) {
+    const { shapeIndex = 0 } = e.target.dataset
+    const { shapeList } = this.data
+    shapeList.splice(shapeIndex, 1);
+    this.setData({
+      shapeList,
+      currentShapeIndex: -1
+    })
+  },
+
+  reverseShape(e) {
+    const { shapeIndex = 0 } = e.target.dataset
+    const { shapeList } = this.data
+    shapeList[shapeIndex] = {
+      ...shapeList[shapeIndex],
+      reserve: 0 - shapeList[shapeIndex].reserve
+    }
+
+    this.setData({
+      shapeList
+    })
+  },
+
+
+  checkedShape(e) {
+    this.setData({
+      currentShapeIndex: -1
+    })
+  },
+
+  touchStart(e) {
+    const { type = '', shapeIndex = 0 } = e.target.dataset
+
+    this.touch_target = type;
+    this.touch_shape_index = shapeIndex;
+    if (this.touch_target == 'mask' && shapeIndex !== this.data.currentShapeIndex) {
+      this.setData({
+        currentShapeIndex: shapeIndex
+      })
+    }
+
+    if (this.touch_target != '') {
+      this.start_x = e.touches[0].clientX;
+      this.start_y = e.touches[0].clientY;
+    }
+  },
+  touchEnd(e) {
+    if (this.touch_target !== '' || this.touch_target !== 'cancel') {
+      if (this.data.shapeList[this.touch_shape_index]) {
+        setTmpThis(this, this.data.shapeList[this.touch_shape_index])
+      }
+    }
+  },
+  touchMove(e) {
+    let { shapeList } = this.data
+    const {
+      maskCenterX,
+      maskCenterY,
+      resizeCenterX,
+      resizeCenterY,
+    } = shapeList[this.touch_shape_index]
+
+    var current_x = e.touches[0].clientX;
+    var current_y = e.touches[0].clientY;
+    var moved_x = current_x - this.start_x;
+    var moved_y = current_y - this.start_y;
+    if (this.touch_target == 'mask') {
+      shapeList[this.touch_shape_index] = {
+        ...shapeList[this.touch_shape_index],
+        maskCenterX: maskCenterX + moved_x,
+        maskCenterY: maskCenterY + moved_y,
+        resizeCenterX: resizeCenterX + moved_x,
+        resizeCenterY: resizeCenterY + moved_y
+      }
+      this.setData({
+        shapeList
+      })
+    }
+    if (this.touch_target == 'rotate-resize') {
+      let oneState = {
+        resizeCenterX: resizeCenterX + moved_x,
+        resizeCenterY: resizeCenterY + moved_y,
+      }
+
+      let diff_x_before = this.resize_center_x - this.mask_center_x;
+      let diff_y_before = this.resize_center_y - this.mask_center_y;
+      let diff_x_after = resizeCenterX - this.mask_center_x;
+      let diff_y_after = resizeCenterY - this.mask_center_y;
+      let distance_before = Math.sqrt(
+        diff_x_before * diff_x_before + diff_y_before * diff_y_before
+      );
+
+      let distance_after = Math.sqrt(
+        diff_x_after * diff_x_after + diff_y_after * diff_y_after
+      );
+
+      let angle_before = (Math.atan2(diff_y_before, diff_x_before) / Math.PI) * 180;
+      let angle_after = (Math.atan2(diff_y_after, diff_x_after) / Math.PI) * 180;
+
+      let twoState = {
+        maskWidth: (distance_after / distance_before) * this.mask_width,
+        rotate: angle_after - angle_before + this.rotate
+      }
+
+      shapeList[this.touch_shape_index] = {
+        ...shapeList[this.touch_shape_index],
+        ...oneState,
+        ...twoState
+      }
+
+      this.setData({
+        shapeList
+      })
+
+    }
+    this.start_x = current_x;
+    this.start_y = current_y;
   }
 
 })
