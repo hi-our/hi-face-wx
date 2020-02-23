@@ -1,9 +1,10 @@
 // pages/christmas-hat/christmas-hat.js
+import { fsmReadFile, getImgUrl } from '../../utils/canvas-drawing'
+import { cloudCallFunction } from '../../utils/fetch'
+import { getMouthInfo, getMaskShapeList } from '../../utils/face-utils'
+
 const utilsCommon = require('../../utils/common')
 const promisify = require('../../utils/promisify')
-import { fsmReadFile, getImgUrl } from '../../utils/canvas-drawing';
-import { cloudCallFunction } from '../../utils/fetch'
-import { getMouthInfo, getMaskShapeList } from '../../utils/face-utils';
 
 const regeneratorRuntime = require('../../utils/regenerator-runtime/runtime.js')
 
@@ -75,13 +76,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    DPR_CANVAS_SIZE: 300,
-    DPR_CANVAS_SIZE: DPR_CANVAS_SIZE,
+    DPR_CANVAS_SIZE,
     pixelRatio: utilsCommon.getSystemInfo().pixelRatio,
     shapeList: [
       resetState()
     ],
-    materialList: [],
     currentShapeIndex: 0,
     originSrc: '',
     cutImageSrc: '',
@@ -97,7 +96,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.cropper = this.selectComponent("#image-cropper");
+    this.cropper = this.selectComponent('#image-cropper');
 
   },
 
@@ -146,10 +145,29 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage({ from, target }) {
+    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
 
+    let shareImage = DEFAULT_SHARE_COVER
+    if (from === 'button') {
+      const { dataset = {} } = target
+      const { posterSrc = '' } = dataset
+
+      console.log('posterSrc :', posterSrc)
+
+      if (posterSrc) {
+        shareImage = posterSrc
+      }
+    }
+
+    return {
+      title: '让我们快快戴口罩，抗击疫情吧！',
+      imageUrl: shareImage,
+      path: '/pages/wear-a-mask/wear-a-mask'
+    }
   },
-  onChooseImage(event){
+
+  onChooseImage(event) {
 
     // console.log('event :', event);
     // TODO 兼容写法
@@ -186,7 +204,8 @@ Page({
 
     this.onAnalyzeFace(cutImageSrc)
   },
-  onCutSubmit(){
+
+  onCutSubmit() {
     let that = this
     this.cropper.getImg((detail) => {
       that.onCropperCut({
@@ -194,6 +213,7 @@ Page({
       })
     });
   },
+
   onCutCancel() {
     this.setData({
       originSrc: ''
@@ -335,7 +355,7 @@ Page({
     })
 
     try {
-      // await this.drawCanvas()
+      await this.drawCanvas()
     } catch (error) {
       wx.hideLoading()
       wx.showToast({
@@ -344,6 +364,85 @@ Page({
       console.log('error :', error)
     }
   },
+  async drawCanvas() {
+    const {
+      shapeList,
+      currentJiayouId,
+      cutImageSrc
+    } = this.data
+
+    const pc = wx.createCanvasContext('canvasMask')
+    const tmpUsePageDpr = PageDpr * pixelRatio
+
+    pc.clearRect(0, 0, SAVE_IMAGE_WIDTH, SAVE_IMAGE_WIDTH);
+    let tmpCutImage = this.cutImageSrcCanvas || await getImgUrl(cutImageSrc)
+    pc.drawImage(tmpCutImage, 0, 0, SAVE_IMAGE_WIDTH, SAVE_IMAGE_WIDTH)
+
+    // 形状
+    shapeList.forEach(shape => {
+      pc.save()
+      const {
+        maskWidth,
+        rotate,
+        maskCenterX,
+        maskCenterY,
+        currentMaskId,
+        reserve,
+      } = shape
+      const maskSize = maskWidth * pixelRatio
+
+      pc.translate(maskCenterX * pixelRatio, maskCenterY * pixelRatio);
+      pc.rotate((rotate * Math.PI) / 180)
+
+      pc.drawImage(
+        `../../images/mask-${currentMaskId}${reserve < 0 ? '-reverse' : ''}.png`,
+        -maskSize / 2,
+        -maskSize / 2,
+        maskSize,
+        maskSize
+      )
+      pc.restore()
+    })
+
+    if (currentJiayouId > 0) {
+      pc.save()
+
+      pc.drawImage(
+        `../../images/jiayou-${currentJiayouId}.png`,
+        0,
+        132 * tmpUsePageDpr,
+        300 * tmpUsePageDpr,
+        169 * tmpUsePageDpr,
+      )
+    }
+
+    pc.draw(true, () => {
+      wx.canvasToTempFilePath({
+        canvasId: 'canvasMask',
+        x: 0,
+        y: 0,
+        height: DPR_CANVAS_SIZE * 3,
+        width: DPR_CANVAS_SIZE * 3,
+        fileType: 'jpg',
+        quality: 0.9,
+        success: res => {
+          wx.hideLoading()
+          this.setData({
+            posterSrc: res.tempFilePath,
+            isShowPoster: true
+          })
+        },
+        fail: () => {
+          wx.hideLoading()
+          wx.showToast({
+            title: '图片生成失败，请重试'
+          })
+        }
+      })
+    })
+
+  },
+
   onClickMaskBottom(event) {
     let maskId = event.target.dataset.maskId || 1
     let tabName = event.target.dataset.tabName || ''
@@ -497,6 +596,45 @@ Page({
     }
     this.start_x = current_x;
     this.start_y = current_y;
+  },
+
+
+  // 海报效果
+  previewPoster() {
+    const { posterSrc } = this.data
+    if (posterSrc !== '') wx.previewImage({ urls: [posterSrc] })
+  },
+
+  onHidePoster() {
+    this.setData({
+      isShowPoster: false
+    })
+  },
+
+  savePoster() {
+    const { posterSrc } = this.data
+
+    if (posterSrc) {
+      this.saveImageToPhotosAlbum(posterSrc)
+    }
+  },
+
+  saveImageToPhotosAlbum(tempFilePath) {
+    wx.saveImageToPhotosAlbum({
+      filePath: tempFilePath,
+      success: res2 => {
+        wx.showToast({
+          title: '图片保存成功'
+        })
+        console.log('保存成功 :', res2);
+      },
+      fail(e) {
+        wx.showToast({
+          title: '图片未保存成功'
+        })
+        console.log('图片未保存成功:' + e);
+      }
+    });
   }
 
 })
