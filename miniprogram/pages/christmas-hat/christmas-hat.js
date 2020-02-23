@@ -345,5 +345,38 @@ Page({
       })
       console.log('error :', error)
     }
+  },
+  onClickMaskBottom(event) {
+    let maskId = event.target.dataset.maskId || 1
+    let tabName = event.target.dataset.tabName || ''
+    console.log('maskId,  :', maskId, tabName);
+    if (tabName === 'mask') this.chooseMask(maskId)
+    if (tabName === 'jiayou') this.chooseJiayouId(maskId)
+  },
+  chooseMask(maskId) {
+    let { shapeList, currentShapeIndex } = this.data
+
+    if (shapeList.length > 0 && currentShapeIndex >= 0) {
+      shapeList[currentShapeIndex] = {
+        ...shapeList[currentShapeIndex],
+        currentMaskId: maskId
+      }
+    } else {
+      currentShapeIndex = shapeList.length
+      shapeList.push({
+        ...resetState(),
+        currentMaskId: maskId
+      })
+    }
+    this.setData({
+      shapeList,
+      currentShapeIndex
+    })
+  },
+  chooseJiayouId(jiayouId = 0) {
+    this.setData({
+      currentJiayouId: jiayouId
+    })
   }
+
 })

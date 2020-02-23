@@ -76,11 +76,12 @@
           <view wx:key="name" style="display:{{currentTabIndex === itemIndex ? 'block' : 'none'}}" wx:for="{{materialList}}" wx:for-item="item" wx:for-index="itemIndex">
             <scroll-view class="mask-select-wrap" scroll-x="{{true}}">
               <image
-                class="{{'tab-bd-image  tab-bd-image-' + item.$original.name}}"
+                class="{{'tab-bd-image  tab-bd-image-' + item.name}}"
                 wx:key="$original"
                 src="../../images/{{item.name}}-{{imgId}}.png"
-                bindtap="anonymousFunc0"
-                data-mask-id="{{imgId.$original}}"
+                bindtap="onClickMaskBottom"
+                data-mask-id="{{imgId}}"
+                data-tab-name="{{item.name}}"
                 wx:for="{{item.imgList}}"
                 wx:for-item="imgId" wx:for-index="__index0" data-e-tap-so="this" data-e-tap-a-a="{{imgId._$indexKey}}"
               ></image>
