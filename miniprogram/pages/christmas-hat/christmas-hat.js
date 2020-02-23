@@ -156,7 +156,7 @@ Page({
 
     let way = event.target.dataset.way || 'album'
     const chooseImage = promisify(wx.chooseImage)
-    console.log('way :', way, chooseImage);
+    console.log('way :', way);
     chooseImage({
       count: 1,
       sourceType: [way]
@@ -310,6 +310,40 @@ Page({
       })
       setTmpThis(this, shapeList[0])
     }
+  },
+  chooseTab(event) {
+    let index = event.target.dataset.index || 0
+    console.log('object :', event.target.dataset.index);
+    this.setData({
+      currentTabIndex: index
+    })
+  },
+  onRemoveImage() {
+    this.cutImageSrcCanvas = ''
+    this.setData({
+      shapeList: [
+        resetState()
+      ],
+      cutImageSrc: ''
+    })
+  },
+  async downloadImage() {
+    wx.showLoading({
+      title: '图片生成中'
+    })
 
+    this.setData({
+      posterSrc: '',
+    })
+
+    try {
+      // await this.drawCanvas()
+    } catch (error) {
+      wx.hideLoading()
+      wx.showToast({
+        title: '图片生成失败，请重试'
+      })
+      console.log('error :', error)
+    }
   }
 })

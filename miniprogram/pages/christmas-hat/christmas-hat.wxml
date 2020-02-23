@@ -32,7 +32,7 @@
           </view>
         </block>
         <block wx:else>
-          <view class="to-choose" data-way="album" bindtap="onChooseImage" data-e-tap-so="this" data-e-tap-a-a="album"></view>
+          <view class="to-choose" data-way="album" bindtap="onChooseImage"></view>
         </block>
       </block>
     </view>
@@ -67,8 +67,8 @@
     <block wx:if="{{cutImageSrc}}">
       <view class="tab-wrap">
         <view class="tab-hd">
-          <view wx:key="name" class="{{'tab-hd-item ' + (currentTabIndex === itemIndex ? 'tab-hd-active' : '')}}" bindtap="chooseTab" wx:for="{{materialList}}" wx:for-item="item" wx:for-index="itemIndex" data-e-tap-so="this" data-e-tap-a-a="{{itemIndex}}">
-            <image class="tab-hd-image" src="{{item.icon}}" mode="aspectFit"></image>
+          <view wx:key="name" class="{{'tab-hd-item ' + (currentTabIndex === itemIndex ? 'tab-hd-active' : '')}}" bindtap="chooseTab" wx:for="{{materialList}}" wx:for-item="item" wx:for-index="itemIndex" data-index="{{itemIndex}}">
+            <image class="tab-hd-image" src="{{item.icon}}" mode="aspectFit" data-index="{{itemIndex}}"></image>
           </view>
           <view class="tab-hd-tips">提示：{{tabsTips}}</view>
         </view>
