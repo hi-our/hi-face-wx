@@ -39,6 +39,12 @@ const base64src = async (base64data) => {
   }
 };
 
+// 获取base64中主要信息，不包含base前缀和格式
+export const getBase64Main = (fullSrc) => {
+  return fullSrc.split(',')[1]
+}
+
+// src转换为base64
 export const srcToBase64Main = async (src) => {
   try {
     const readFile = promisify(fsm.readFile)
@@ -55,7 +61,6 @@ export const srcToBase64Main = async (src) => {
   }
 }
 
-
 // 文件管理
 export const fsmReadFile = promisify(fsm.readFile)
 
@@ -64,14 +69,15 @@ export const fsmReadFile = promisify(fsm.readFile)
  * @param {*} src 图片地址
  * @param {*} callback
  */
-export const getImg = async (src) => {
+export const getImgUrl = async (src) => {
   console.log('getImg src :', src);
   if (src.includes(';base64,')) {
     return await base64src(src)
   }
 
   try {
-    const res = await wx.getImageInfo({
+    const getImageInfo = promisify(wx.getImageInfo)
+    const res = await getImageInfo({
       src,
     })
     return res.path

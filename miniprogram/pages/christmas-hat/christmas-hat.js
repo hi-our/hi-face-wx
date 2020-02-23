@@ -1,13 +1,14 @@
 // pages/christmas-hat/christmas-hat.js
 const utilsCommon = require('../../utils/common')
 const promisify = require('../../utils/promisify')
-import { fsmReadFile } from '../../utils/canvas-drawing';
-import { cloudCallFunction } from '../../utils/fetch';
+import { fsmReadFile, getImgUrl } from '../../utils/canvas-drawing';
+import { cloudCallFunction } from '../../utils/fetch'
+import { getMouthInfo, getMaskShapeList } from '../../utils/face-utils';
 
 const regeneratorRuntime = require('../../utils/regenerator-runtime/runtime.js')
 
 const { windowWidth, pixelRatio } = utilsCommon.getSystemInfo()
-const CANVAS_SIZE = 350
+const CANVAS_SIZE = 300
 const PageDpr = windowWidth / 375
 
 const DPR_CANVAS_SIZE = CANVAS_SIZE * PageDpr
@@ -173,22 +174,19 @@ Page({
 
   },
   cropperIoadImage(event) {
-    let imageInfo = event.detail
-    console.log('cropperIoadImage imageInfo :', imageInfo);
+    // let imageInfo = event.detail
     this.cropper.imgReset()
 
   },
   onCropperCut(event) {
     let imageInfo = event.detail
     let cutImageSrc = imageInfo.url
-    console.log('cutImageSrc :', cutImageSrc);
     this.setData({
       cutImageSrc: cutImageSrc,
       originSrc: ''
     })
+
     this.onAnalyzeFace(cutImageSrc)
-    // console.log('onCut imageInfo :', imageInfo);
-    
   },
   onCutSubmit(){
     let that = this
@@ -203,7 +201,7 @@ Page({
       originSrc: ''
     })
   },
-  async onGetUserInfo (e) {
+  async onGetUserInfo(e) {
 
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
@@ -213,7 +211,7 @@ Page({
         title: '获取头像...'
       })
       try {
-        let avatarUrl = e.detail.userInfo.avatarUrl
+        let avatarUrl = await getImgUrl(e.detail.userInfo.avatarUrl)
         if (avatarUrl) {
           this.onCropperCut({
             detail: {
@@ -255,9 +253,6 @@ Page({
 
       let oldTime = Date.now()
 
-      console.log('object :', fsmReadFile);
-      // const fsmReadFile = promisify()
-
       let { data: base64Main } = await fsmReadFile({
         filePath: resImage.tempFilePath,
         encoding: 'base64',
@@ -270,13 +265,51 @@ Page({
         }
       })
 
-      console.log(((Date.now() - oldTime) / 1000).toFixed(1) + '秒')
-
-      return couldRes
-    } catch (error) {
       
+      console.log(((Date.now() - oldTime) / 1000).toFixed(1) + '秒')
+      const mouthList = getMouthInfo(couldRes)
+
+      const shapeList = getMaskShapeList(mouthList, DPR_CANVAS_SIZE, MASK_SIZE)
+
+      setTmpThis(this, shapeList[0])
+
+      this.setData({
+        currentShapeIndex: 0,
+        shapeList,
+        isShowMask: true,
+      })
+
+      wx.hideLoading()
+
+    } catch (error) {
+      console.log('onAnalyzeFace error :', error);
+
+      wx.hideLoading()
+      const { status } = error
+
+      if (status === 87014 || status === 87015) {
+        wx.showToast({
+          icon: 'none',
+          title: status === 87014 ? '图中包含违规内容，请更换' : '重新上传试试看'
+        })
+        this.setData({
+          cutImageSrc: ''
+        })
+        return
+      }
+
+
+      // 获取失败，走默认渲染
+      let shapeList = [
+        resetState()
+      ]
+
+      this.setData({
+        shapeList,
+        isShowMask: true,
+      })
+      setTmpThis(this, shapeList[0])
     }
 
-    // try {
   }
 })

@@ -8,8 +8,11 @@
           <view class="image-wrap" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
             <image src="{{cutImageSrc}}" mode="widthFix" class="image-selected"></image>
             <block wx:if="{{isShowMask}}">
-              <!-- <view class="mask-container" wx:key="timeNow" style="{{shape.$loopState__temp4}}" wx:for="{{loopArray42}}" wx:for-item="shape" wx:for-index="shapeIndex">
-                <image class="mask" data-type="mask" data-shape-index="{{shapeIndex}}" src="{{shape.$loopState__temp6}}" style="{{shape.$loopState__temp8}}"></image>
+              <view class="mask-container" wx:key="timeNow"
+                style="width: {{shape.maskWidth}}px; height:  {{shape.maskWidth}}px; transform: translate({{  shape.maskCenterX -  shape.maskWidth / 2 - 2 + 'px'}}, {{shape.maskCenterY -  shape.maskWidth / 2 - 2 + 'px'}}) rotate({{shape.rotate}}deg); z-index: {{shapeIndex === currentShapeIndex ? 2 : 1}}"
+                wx:for="{{shapeList}}" wx:for-item="shape" wx:for-index="shapeIndex"
+              >
+                <image class="mask" data-type="mask" data-shape-index="{{shapeIndex}}" src="../../images/mask-{{shape.currentMaskId}}.png" style="transform: scale({{shape.reserve}}, 1)"></image>
                 <block wx:if="{{currentShapeIndex === shapeIndex}}">
                   <block>
                     <view class="image-btn-remove" data-shape-index="{{shapeIndex}}" bindtap="removeShape"></view>
@@ -18,11 +21,11 @@
                     <view class="image-btn-checked" data-shape-index="{{shapeIndex}}" bindtap="checkedShape"></view>
                   </block>
                 </block>
-              </view> -->
+              </view>
             </block>
             <block wx:if="{{isShowMask && currentJiayouId > 0}}">
               <view class="image-jiayou">
-                <image id="mask" src="{{anonymousState__temp9}}"></image>
+                <image id="mask" src="../../images/jiayou-{{currentJiayouId}}.png"></image>
                 <view class="image-btn-jiayou" bindtap="chooseJiayouId"></view>
               </view>
             </block>
@@ -54,7 +57,7 @@
     </block>
   </view>
   <view class="cropper-wrap" hidden="{{!originSrc}}">
-    <image-cropper id="image-cropper" limit_move="{{true}}" disable_rotate="{{true}}"  disable_width="{{true}}"  disable_height="{{true}}" width="{{DPR_CANVAS_SIZE}}" height="{{DPR_CANVAS_SIZE}}" imgSrc="{{originSrc}}" bindload="cropperLoad" bindimageload="cropperIoadImage" bindtapcut="onCropperCut"></image-cropper>
+    <image-cropper id="image-cropper"  export_scale="{{pixelRatio}}" limit_move="{{true}}" disable_rotate="{{true}}"  disable_width="{{true}}"  disable_height="{{true}}" width="{{DPR_CANVAS_SIZE}}" height="{{DPR_CANVAS_SIZE}}" imgSrc="{{originSrc}}" bindload="cropperLoad" bindimageload="cropperIoadImage" bindtapcut="onCropperCut"></image-cropper>
     <view class="cropper-bottom">
       <view class="cropper-bottom-btn" bindtap="onCutCancel">取消</view>
       <view class="cropper-bottom-btn"  bindtap="onCutSubmit">确认</view>

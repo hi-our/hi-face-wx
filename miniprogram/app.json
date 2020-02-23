@@ -22,5 +22,9 @@
     "navigationBarTitleText": "云开发 QuickStart",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 20000,
+    "downloadFile": 10000
+  }
 }
