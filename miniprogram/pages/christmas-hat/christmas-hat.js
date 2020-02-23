@@ -7,7 +7,7 @@ import { cloudCallFunction } from '../../utils/fetch';
 const regeneratorRuntime = require('../../utils/regenerator-runtime/runtime.js')
 
 const { windowWidth, pixelRatio } = utilsCommon.getSystemInfo()
-const CANVAS_SIZE = 300
+const CANVAS_SIZE = 350
 const PageDpr = windowWidth / 375
 
 const DPR_CANVAS_SIZE = CANVAS_SIZE * PageDpr
@@ -89,6 +89,7 @@ Page({
     currentJiayouId: 1,
     currentTabIndex: 0,
     isShowMask: false,
+    materialList
   },
 
   /**

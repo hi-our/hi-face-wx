@@ -70,9 +70,17 @@
           <view class="tab-hd-tips">提示：{{tabsTips}}</view>
         </view>
         <view class="tab-bd">
-          <view wx:key="name" style="{{item.$loopState__temp11}}" wx:for="{{loopArray44}}" wx:for-item="item" wx:for-index="itemIndex">
+          <view wx:key="name" style="display:{{currentTabIndex === itemIndex ? 'block' : 'none'}}" wx:for="{{materialList}}" wx:for-item="item" wx:for-index="itemIndex">
             <scroll-view class="mask-select-wrap" scroll-x="{{true}}">
-              <image class="{{'tab-bd-image  tab-bd-image-' + item.$original.name}}" wx:key="$original" src="{{imgId.$loopState__temp13}}" bindtap="anonymousFunc0" data-mask-id="{{imgId.$original}}" wx:for="{{item.$anonymousCallee__14}}" wx:for-item="imgId" wx:for-index="__index0" data-e-tap-so="this" data-e-tap-a-a="{{imgId._$indexKey}}"></image>
+              <image
+                class="{{'tab-bd-image  tab-bd-image-' + item.$original.name}}"
+                wx:key="$original"
+                src="../../images/{{item.name}}-{{imgId}}.png"
+                bindtap="anonymousFunc0"
+                data-mask-id="{{imgId.$original}}"
+                wx:for="{{item.imgList}}"
+                wx:for-item="imgId" wx:for-index="__index0" data-e-tap-so="this" data-e-tap-a-a="{{imgId._$indexKey}}"
+              ></image>
             </scroll-view>
           </view>
         </view>
