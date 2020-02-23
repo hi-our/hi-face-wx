@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    pageStatus: 'loading'
   },
 
   /**
@@ -84,5 +84,22 @@ Page({
       imageUrl: DEFAULT_SHARE_COVER,
       path: '/pages/thanks/thanks'
     }
+  },
+  copyToClipboard(str) {
+    const { pageData } = this.data
+
+    wx.setClipboardData({
+      data: pageData.sourceLink,
+      success() {
+        wx.showToast({
+          icon: 'none',
+          title: '复制成功'
+        })
+      },
+      fail() {
+        console.log('setClipboardData调用失败')
+      }
+    })
+
   }
 })

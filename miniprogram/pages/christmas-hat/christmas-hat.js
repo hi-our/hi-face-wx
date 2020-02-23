@@ -1,10 +1,10 @@
 // pages/christmas-hat/christmas-hat.js
+import '../../utils/regenerator-runtime/runtime'
 import { fsmReadFile, getImgUrl } from '../../utils/canvas-drawing'
 import { cloudCallFunction } from '../../utils/fetch'
 import { getMouthInfo, getMaskShapeList } from '../../utils/face-utils'
 import { getSystemInfo } from '../../utils/common'
 import promisify from '../../utils/promisify'
-import '../../utils/regenerator-runtime/runtime'
 
 const { windowWidth, pixelRatio } = getSystemInfo()
 const CANVAS_SIZE = 300

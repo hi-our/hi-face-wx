@@ -11,7 +11,7 @@
     "list": [
       {
         "pagePath": "pages/christmas-hat/christmas-hat",
-        "text": "戴口罩",
+        "text": "圣诞帽",
         "iconPath": "images/mask-1.png",
         "selectedIconPath": "images/mask-2.png"
       },

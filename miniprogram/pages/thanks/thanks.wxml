@@ -1,27 +1,30 @@
 <view>
-  <view class="thanks-word">
-    <text>{{thanksWord}}</text>
-  </view>
-  <view class="author-wrap">
-    <image class="author-avatar" src="{{authorAvatar}}"></image>
-    <view class="author-main">
-      <text class="author-name">{{authorName}}</text>
-      <text class="author-desc">{{authorDesc}}</text>
-      <button class="copy-link-btn" bindtap="copyToClipboard" data-e-tap-so="this" data-e-tap-a-a="{{sourceLink}}">
-        复制源码地址
-      </button>
+  <view wx:if="{{pageStatus === 'loading'}}"></view>
+  <view wx:if="{{pageStatus === 'done'}}">
+    <view class="thanks-word">
+      <text>{{pageData.thanksWord}}</text>
     </view>
-  </view>
-  <view class="reference-wrap">
-    <view class="reference-title">参考项目</view>
-    <view>
-      <view class="reference-item" wx:key="image" wx:for="{{loopArray3}}" wx:for-item="reference" wx:for-index="_anonIdx2">
-        <image class="reference-image" src="{{reference.image}}"></image>
-        <view class="reference-main">
-          <text class="reference-text">{{reference.desc}}</text>
+    <view class="author-wrap">
+      <image class="author-avatar" src="{{pageData.authorAvatar}}"></image>
+      <view class="author-main">
+        <text class="author-name">{{pageData.authorName}}</text>
+        <text class="author-desc">{{pageData.authorDesc}}</text>
+        <button class="copy-link-btn" bindtap="copyToClipboard" data-e-tap-so="this" data-e-tap-a-a="{{pageData.sourceLink}}">
+          复制源码地址
+        </button>
+      </view>
+    </view>
+    <view class="reference-wrap">
+      <view class="reference-title">参考项目</view>
+      <view>
+        <view class="reference-item" wx:key="image" wx:for="{{pageData.referenceList}}" wx:for-item="reference" wx:for-index="_anonIdx2">
+          <image class="reference-image" src="{{reference.image}}"></image>
+          <view class="reference-main">
+            <text class="reference-text">{{reference.desc}}</text>
+          </view>
         </view>
       </view>
     </view>
+    <view class="version">Ver.{{version}}，基于 Taro 及小程序云开发</view>
   </view>
-  <view class="version">Ver.{{version}}，基于 Taro 及小程序云开发</view>
 </view>
