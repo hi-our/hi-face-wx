@@ -70,7 +70,6 @@
           <view wx:key="name" class="{{'tab-hd-item ' + (currentTabIndex === itemIndex ? 'tab-hd-active' : '')}}" bindtap="chooseTab" wx:for="{{materialList}}" wx:for-item="item" wx:for-index="itemIndex" data-index="{{itemIndex}}">
             <image class="tab-hd-image" src="{{item.icon}}" mode="aspectFit" data-index="{{itemIndex}}"></image>
           </view>
-          <view class="tab-hd-tips">提示：{{tabsTips}}</view>
         </view>
         <view class="tab-bd">
           <view wx:key="name" style="display:{{currentTabIndex === itemIndex ? 'block' : 'none'}}" wx:for="{{materialList}}" wx:for-item="item" wx:for-index="itemIndex">

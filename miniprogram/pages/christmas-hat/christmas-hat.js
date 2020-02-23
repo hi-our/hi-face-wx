@@ -2,13 +2,11 @@
 import { fsmReadFile, getImgUrl } from '../../utils/canvas-drawing'
 import { cloudCallFunction } from '../../utils/fetch'
 import { getMouthInfo, getMaskShapeList } from '../../utils/face-utils'
+import { getSystemInfo } from '../../utils/common'
+import promisify from '../../utils/promisify'
+import '../../utils/regenerator-runtime/runtime'
 
-const utilsCommon = require('../../utils/common')
-const promisify = require('../../utils/promisify')
-
-const regeneratorRuntime = require('../../utils/regenerator-runtime/runtime.js')
-
-const { windowWidth, pixelRatio } = utilsCommon.getSystemInfo()
+const { windowWidth, pixelRatio } = getSystemInfo()
 const CANVAS_SIZE = 300
 const PageDpr = windowWidth / 375
 
@@ -77,7 +75,7 @@ Page({
    */
   data: {
     DPR_CANVAS_SIZE,
-    pixelRatio: utilsCommon.getSystemInfo().pixelRatio,
+    pixelRatio: getSystemInfo().pixelRatio,
     shapeList: [
       resetState()
     ],
@@ -163,7 +161,7 @@ Page({
     return {
       title: '让我们快快戴口罩，抗击疫情吧！',
       imageUrl: shareImage,
-      path: '/pages/wear-a-mask/wear-a-mask'
+      path: '/pages/christmas-hat/christmas-hat'
     }
   },
 
