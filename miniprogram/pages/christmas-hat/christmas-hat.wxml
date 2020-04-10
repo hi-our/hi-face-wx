@@ -90,7 +90,7 @@
       </view>
     </block>
     <block wx:else>
-      <view class="bottom-tips-wrap">
+      <view class="bottom-tips-wrap" bindtap="toFaceLove">
         <text>{{'备注：\n选择后会识别图中人脸，并自动戴上口罩\n识别过程需几秒钟，请耐心等待'}}</text>
       </view>
     </block>

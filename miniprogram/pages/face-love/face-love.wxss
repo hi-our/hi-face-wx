@@ -1,0 +1,16 @@
+/* miniprogram/pages/face-love/face-love.wxss */
+
+.box {
+  width: 100%;
+  height: 100%;
+}
+
+.previewPic {
+  width: 100%;
+  height: 80%;
+}
+
+.uploadPic {
+  width: 100%;
+  height: 20%;
+}

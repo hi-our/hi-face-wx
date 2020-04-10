@@ -1,0 +1,5 @@
+<!--miniprogram/pages/face-love/face-love.wxml-->
+<view class="box">
+  <view class="previewPic"></view>
+  <view class="uploadPic">上传</view>
+</view>
