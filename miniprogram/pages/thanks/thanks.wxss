@@ -1,0 +1,73 @@
+.thanks-word {
+  padding: 40rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+  color: #2f3742;
+  border-bottom: 2rpx solid #e1e1e1;
+}
+.author-wrap {
+  display: flex;
+  padding: 40rpx;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid #e1e1e1;
+}
+.author-wrap .author-avatar {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+}
+.author-wrap .author-name {
+  display: block;
+  font-size: 36rpx;
+  line-height: 1.5;
+  color: #2f3742;
+}
+.author-wrap .author-desc {
+  white-space: nowrap;
+  display: block;
+  font-size: 24rpx;
+  line-height: 1.5;
+  color: #2f3742;
+}
+.author-wrap .copy-link-btn {
+  margin-top: 20rpx;
+  background: #2f5aff;
+  font-size: 32rpx;
+  line-height: 60rpx;
+  width: 240rpx;
+  color: #fff;
+  border-radius: 30rpx;
+}
+.reference-wrap {
+  padding: 40rpx;
+}
+.reference-wrap .reference-title {
+  font-size: 36rpx;
+  line-height: 1.5;
+  color: #2f3742;
+}
+.reference-wrap .reference-item {
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.reference-wrap .reference-image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+  border-radius: 60rpx;
+}
+.reference-wrap .reference-main {
+  font-size: 24rpx;
+  line-height: 1.5;
+  color: #2f3742;
+  word-break: break-all;
+}
+.version {
+  padding: 30rpx 0 40rpx;
+  color: #95a1af;
+  font-size: 24rpx;
+  text-align: center;
+}
+

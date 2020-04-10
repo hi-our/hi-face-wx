@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/christmas-hat/christmas-hat",
+    "pages/thanks/thanks"
+  ],
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "color": "#95a1af",
+    "selectedColor": "#2f5aff",
+    "list": [
+      {
+        "pagePath": "pages/christmas-hat/christmas-hat",
+        "text": "圣诞帽",
+        "iconPath": "images/mask-1.png",
+        "selectedIconPath": "images/mask-2.png"
+      },
+      {
+        "pagePath": "pages/thanks/thanks",
+        "text": "致谢",
+        "iconPath": "images/thank-1.png",
+        "selectedIconPath": "images/thank-2.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "女神帽",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 20000,
+    "downloadFile": 10000
+  }
+}

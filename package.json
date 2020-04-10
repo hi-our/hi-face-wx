@@ -1,0 +1,43 @@
+{
+  "name": "goddess-hat-local",
+  "version": "0.1.0",
+  "description": "圣诞帽，智能美颜，个人中心，海报",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenghanqin/goddess-hat.git"
+  },
+  "keywords": [
+    "圣诞帽，智能美颜，个人中心，海报"
+  ],
+  "author": "shenghanqin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shenghanqin/goddess-hat/issues"
+  },
+  "homepage": "https://github.com/shenghanqin/goddess-hat#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-config-standard": "11.0.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "clean": "rm -rf dist/*",
+    "lint": "eslint -c .eslintrc ./miniprogram ./cloudfunctions"
+  },
+  "lint-staged": {
+    "miniprogram/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "cloudfunctions/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
