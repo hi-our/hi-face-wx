@@ -1,5 +1,13 @@
 <!--miniprogram/pages/face-love/face-love.wxml-->
 <view class="box">
-  <view class="previewPic"></view>
-  <view class="uploadPic">上传</view>
+	<view class="picBox">
+		<image class="bigPic" src="{{bigPic}}" mode="aspectFit"></image>
+		<view class="scanPic">
+			<image class="litPic" src="{{litPic}}" mode="aspectFit"></image>
+			<block wx:for="{{facePics}}" wx:key="index">
+				<image class="faceScaned" src="{{item}}" mode="aspectFit"></image>
+			</block>
+		</view>
+	</view>
+	<view class="uploadPic" bindtap="chooseImg">上传</view>
 </view>

@@ -3,14 +3,48 @@
 .box {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  background: -webkit-linear-gradient(top,rgb(139, 59, 112),rgb(51, 42, 63));
 }
 
-.previewPic {
+/* 怎么让背景颜色渐变呢 */
+.picBox {
   width: 100%;
-  height: 80%;
+  height: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15%;
+
+}
+
+.bigPic {
+  width: 80%;
+  height: 70%;
+}
+
+.scanPic {
+  width: 80%;
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.litPic {
+
 }
 
 .uploadPic {
   width: 100%;
-  height: 20%;
+  height: 12%;
+  background-color: rgba(54, 118, 235, 1);
+  font-size: normal;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

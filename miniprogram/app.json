@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/face-love/face-love",
     "pages/christmas-hat/christmas-hat",
-    "pages/thanks/thanks",
-    "pages/face-love/face-love"
+    "pages/thanks/thanks"
   ],
   "tabBar": {
     "backgroundColor": "#fff",
