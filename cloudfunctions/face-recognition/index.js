@@ -19,6 +19,14 @@ const getBase64 = async (fileID) => {
   return fileContent.toString('base64')
 }
 
+const getImageUrl = async (fileID) => {
+  const { fileList } = await tcb.getTempFileURL({
+    fileList: [fileID]
+  })
+  return fileList[0].tempFileURL
+}
+
+
 exports.main = async (event) => {
   const { fileID = '', base64Main = '' } = event
 
@@ -51,7 +59,8 @@ exports.main = async (event) => {
 
     let faceFileID = cloudEnvPath + facePath1 + cloudPath
 
-    const base64 = await getBase64(faceFileID)
+    // const base64 = await getBase64(faceFileID)
+    const imageUrl = await getImageUrl(faceFileID)
 
     return Promise.allSettled([
       tcb.callFunction({
@@ -60,7 +69,7 @@ exports.main = async (event) => {
           fileID: faceFileID
         }
       }),
-      detectFace(base64)
+      detectFace(imageUrl)
     ]).then((results) => {
       let checkResult = results[0]
       let faceResult = results[1]
