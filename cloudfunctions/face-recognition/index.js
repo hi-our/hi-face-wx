@@ -5,11 +5,8 @@ const detectFace = require('./req-iai-face').detectFace
 
 let env = process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
 
-
-
 tcb.init({
   env
-
 })
 tcb.registerExtension(extCi)
 
