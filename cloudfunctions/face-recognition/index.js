@@ -2,7 +2,7 @@ const tcb = require('tcb-admin-node')
 const config = require('./config')
 const reqFace = require('./req-iai-face')
 
-let env = process.env.TCB_ENV === 'local' ? 'development-v9y2f' : process.env.TCB_ENV
+let env = process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
 
 if (typeof Promise.allSettled !== "function") {
   Promise.allSettled = function (promises) {

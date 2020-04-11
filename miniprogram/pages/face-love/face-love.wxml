@@ -2,12 +2,12 @@
 <view class="box">
 	<view class="picBox">
 		<image class="bigPic" src="{{bigPic}}" mode="aspectFit"></image>
-		<view class="scanPic">
+		<scroll-view class="scanPic" scroll-y="true">
 			<image class="litPic" src="{{litPic}}" mode="aspectFit"></image>
 			<block wx:for="{{facePics}}" wx:key="index">
 				<image class="faceScaned" src="{{item}}" mode="aspectFit"></image>
 			</block>
-		</view>
+		</scroll-view>
 	</view>
 	<view class="uploadPic" bindtap="chooseImg">上传</view>
 </view>
