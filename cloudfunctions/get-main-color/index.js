@@ -52,19 +52,28 @@ exports.main = async (event) => {
       const imgUrl = await getImageUrl(fileID)
       const res = await fetch.get(imgUrl + '?imageAve')
       const { RGB } = getResCode(res)
-  
+
       const colorHex = '#' + RGB.substring(2)
       const colorRgbaObj = hexToRgba(colorHex, opacity)
       const colorRgba = colorRgbaObj.rgba
       const colorRgb = `rgb(${colorRgbaObj.red}, ${colorRgbaObj.green}, ${colorRgbaObj.blue})`
-  
+
       let mainColor = opacity === 1 ? colorHex : colorRgba
       if (colorType === 'hex') {
         mainColor = colorHex
       } else if (colorType === 'rgb') {
         mainColor = colorRgb
       }
-      
+
+      return {
+        data: {
+          mainColor
+        },
+        time: new Date(),
+        status: 0,
+        message: ''
+      }
+
     } catch (error) {
       return {
         data: {},
@@ -73,16 +82,6 @@ exports.main = async (event) => {
         message: JSON.stringify(error)
       }
     }
-
-    return {
-      data: {
-        mainColor
-      },
-      time: new Date(),
-      status: 0,
-      message: ''
-    }
-
 
   }
 
