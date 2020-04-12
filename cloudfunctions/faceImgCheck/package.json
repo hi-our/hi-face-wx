@@ -1,0 +1,15 @@
+{
+  "name": "faceImgSmartCrop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tencentcloud-sdk-nodejs": "^3.0.150",
+    "wx-server-sdk": "~1.8.3"
+  }
+}

@@ -17,24 +17,25 @@ tcb.registerExtension(extCi);
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  const { fileID } = event
+  const { fileID, Width, Height, X, Y } = event
   console.log(fileID)
   imgID = fileID.replace('cloud://', '')
   let index = imgID.indexOf('/')
   imgID = imgID.substr(index)
-  return process(imgID)
+  return cropImg(imgID, Width, Height, X, Y )
 }
 
-async function process(imgID) {
+async function cropImg(imgID, width, height, dx, dy) {
   const newTime = new Date().getTime()
-  console.log(imgID)
+  const rule = "imageMogr2/cut/" + width + "x" + height + "x" + dx + "x" + dy
+  console.log(rule)
   try {
     const opts = {
       rules: [
         {
           // 处理结果的文件路径，如以’/’开头，则存入指定文件夹中，否则，存入原图文件存储的同目录
-          fileid: '/corpTest/' + newTime + '.png',
-          rule: 'imageMogr2/scrop/!200x200r' // 处理样式参数，与下载时处理图像在url拼接的参数一致
+          'fileid': '/corpTest/' + newTime + '.png',
+          'rule': rule // 处理样式参数，与下载时处理图像在url拼接的参数一致
         }
       ]
     };

@@ -1,5 +1,5 @@
 // miniprogram/pages/face-love/face-love.js
-import { uploadFileToCloud, imgSecCheck, faceImgSmartCrop } from "../myFunc.js"
+import { uploadFileToCloud, imgSecCheck, faceImgCheck, cropImg } from "../myFunc.js"
 const app = getApp()
 
 Page({
@@ -41,7 +41,11 @@ Page({
       })
     } else if (results.status == 0) {
       //图片正常，调用人脸识别
-      const a = await faceImgSmartCrop(fileID)
+      const b = await faceImgCheck(fileID)
+      console.log(b)
+      const { Width, Height, X, Y } = b
+      //拿到识别到的面部宽高和在图片的位置dx、dy后，调用裁剪函数
+      const a = await cropImg(fileID, Width, Height, X, Y)
       const absoluteUrl = a.result.UploadResult.ProcessResults.Object.Key
       console.log(a)
       console.log(absoluteUrl)

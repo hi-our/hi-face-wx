@@ -33,12 +33,30 @@ async function imgSecCheck(fileID) {
   return results
 };
 
-//人脸识别并裁剪
-async function faceImgSmartCrop(fileID) {
+//识别人脸
+async function faceImgCheck(fileID) {
+  console.log(fileID)
   const results = await wx.cloud.callFunction({
-    name: 'faceImgSmartCrop',
+    name: 'faceImgCheck',
     data: {
       fileID: fileID
+    }
+  })
+  console.log(results)
+  console.log(results.result.FaceInfos[0])
+  return results.result.FaceInfos[0]
+};
+
+//裁剪识别的面部图片
+async function cropImg(fileID, Width, Height, X, Y) {
+  const results = await wx.cloud.callFunction({
+    name: 'cropImg',
+    data: {
+      fileID: fileID,
+      Width: Width,
+      Height: Height,
+      X: X,
+      Y: Y
     }
   })
   console.log(results)
@@ -49,5 +67,6 @@ async function faceImgSmartCrop(fileID) {
 module.exports = {
   uploadFileToCloud: uploadFileToCloud,
   imgSecCheck: imgSecCheck,
-  faceImgSmartCrop: faceImgSmartCrop
+  faceImgCheck: faceImgCheck,
+  cropImg: cropImg
 }
