@@ -56,6 +56,12 @@
 					"pathName": "pages/thanks/thanks",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/christmas-hat/christmas-hat",
+					"pathName": "pages/christmas-hat/christmas-hat",
+					"scene": null
 				}
 			]
 		}

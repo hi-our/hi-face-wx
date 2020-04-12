@@ -2,7 +2,7 @@
 <view class="box">
 	<view class="picBox">
 		<image class="bigPic" src="{{bigPic}}" mode="aspectFit"></image>
-		<scroll-view class="scanPic" scroll-y="true">
+		<scroll-view class="scanPic" scroll-x>
 			<image class="litPic" src="{{litPic}}" mode="aspectFit"></image>
 			<block wx:for="{{facePics}}" wx:key="index">
 				<image class="faceScaned" src="{{item}}" mode="aspectFit"></image>

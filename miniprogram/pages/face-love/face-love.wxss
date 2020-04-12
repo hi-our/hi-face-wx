@@ -26,11 +26,7 @@
 
 .scanPic {
   width: 90%;
-  height: 35%;
-  display: inline-block;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  white-space: nowrap;
   margin-top: 15rpx;
 }
 
