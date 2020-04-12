@@ -40,22 +40,26 @@ Page({
         showCancel: false,
       })
     } else if (results.status == 0) {
+      let corpImgUrls = []
       //图片正常，调用人脸识别
-      const b = await faceImgCheck(fileID)
-      console.log(b)
-      const { Width, Height, X, Y } = b
+      const faceInfos = await faceImgCheck(fileID)
+      console.log(faceInfos)
       //拿到识别到的面部宽高和在图片的位置dx、dy后，调用裁剪函数
-      const a = await cropImg(fileID, Width, Height, X, Y)
-      const absoluteUrl = a.result.UploadResult.ProcessResults.Object.Key
+      //const a = await cropImg(fileID, Width, Height, X, Y)
+      const a = await cropImg(fileID, faceInfos)
       console.log(a)
-      console.log(absoluteUrl)
+      const absoluteUrls = a.result.UploadResult.ProcessResults.Object
+      console.log(absoluteUrls)
       //拿到裁剪后的图片地址
-      const corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrl
-      console.log(corpImgUrl)
+      for (let i = 0; i < absoluteUrls.length; i++) {
+        let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls[i].Key
+        corpImgUrls.push(corpImgUrl)
+      }
+      console.log(corpImgUrls)
       that.setData({
-        facePics: [corpImgUrl]
+        facePics: corpImgUrls
       })
-      return corpImgUrl
+      return corpImgUrls
     } else {
       //图片安全校验出错
       wx.showModal({

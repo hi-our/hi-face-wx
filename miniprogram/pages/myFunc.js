@@ -43,20 +43,17 @@ async function faceImgCheck(fileID) {
     }
   })
   console.log(results)
-  console.log(results.result.FaceInfos[0])
-  return results.result.FaceInfos[0]
+  console.log(results.result.FaceInfos)
+  return results.result.FaceInfos
 };
 
 //裁剪识别的面部图片
-async function cropImg(fileID, Width, Height, X, Y) {
+async function cropImg(fileID, faceInfos) {
   const results = await wx.cloud.callFunction({
     name: 'cropImg',
     data: {
       fileID: fileID,
-      Width: Width,
-      Height: Height,
-      X: X,
-      Y: Y
+      faceInfos: faceInfos
     }
   })
   console.log(results)

@@ -17,27 +17,28 @@ tcb.registerExtension(extCi);
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  const { fileID, Width, Height, X, Y } = event
+  const { fileID, faceInfos } = event
   console.log(fileID)
   imgID = fileID.replace('cloud://', '')
   let index = imgID.indexOf('/')
   imgID = imgID.substr(index)
-  return cropImg(imgID, Width, Height, X, Y )
+  return cropImg(imgID, faceInfos)
 }
 
-async function cropImg(imgID, width, height, dx, dy) {
-  const newTime = new Date().getTime()
-  const rule = "imageMogr2/cut/" + width + "x" + height + "x" + dx + "x" + dy
-  console.log(rule)
+async function cropImg(imgID, faceInfos) {
+  let rules = []
+
+  for (let i = 0; i < faceInfos.length; i++) {
+    let newTime = new Date().getTime()
+    let { Width, Height, X, Y } = faceInfos[i]
+    let temRule = "imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y
+    let rule = { 'fileid': '/corpTest/' + i + newTime + '.png', 'rule': temRule }
+    rules.push(rule)
+  }
+
   try {
     const opts = {
-      rules: [
-        {
-          // 处理结果的文件路径，如以’/’开头，则存入指定文件夹中，否则，存入原图文件存储的同目录
-          'fileid': '/corpTest/' + newTime + '.png',
-          'rule': rule // 处理样式参数，与下载时处理图像在url拼接的参数一致
-        }
-      ]
+      rules: rules
     };
     console.log('==========================')
     const res = await tcb.invokeExtension("CloudInfinite", {
