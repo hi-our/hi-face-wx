@@ -1,7 +1,14 @@
 <!--miniprogram/pages/face-love/face-love.wxml-->
-<view class="box">
+<view class="box" style="background: -webkit-linear-gradient(top, {{background}}, rgb(51, 42, 63));">
 	<view class="picBox">
-		<image class="bigPic" src="{{bigPic}}" mode="aspectFit"></image>
+		<image class="bigPic" src="{{bigPic}}" mode="widthFix">
+			<block wx:if="{{shapeIndex}}" wx:for="{{shapes}}" wx:key="index">
+				<View class="face-line left-top" style="left:{{item.X+indentationW}}rpx; top:{{item.Y+50}}rpx"></View>
+				<View class="face-line right-top" style="left:{{(item.X+item.Width)+indentationW}}rpx; top:{{item.Y+50}}rpx"></View>
+				<View class="face-line left-bottom" style="left:{{item.X+indentationW}}rpx; top:{{(item.Y+item.Height)+50}}rpx;"></View>
+				<View class="face-line right-bottom" style="left:{{(item.X+item.Width)+indentationW}}rpx; top:{{(item.Y+item.Height)+50}}rpx;"></View>
+			</block>
+		</image>
 		<scroll-view class="scanPic" scroll-x>
 			<image class="litPic" src="{{litPic}}" mode="aspectFit"></image>
 			<block wx:for="{{facePics}}" wx:key="index">
@@ -9,5 +16,5 @@
 			</block>
 		</scroll-view>
 	</view>
-	<view class="uploadPic" bindtap="chooseImg">上传</view>
+	<view class="uploadPic" bindtap="mainFunc">上传</view>
 </view>
