@@ -16,7 +16,6 @@ tcb.registerExtension(extCi);
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
   const { fileID, faceInfos } = event
   console.log(fileID)
   imgID = fileID.replace('cloud://', '')

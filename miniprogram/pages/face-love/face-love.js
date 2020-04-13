@@ -30,6 +30,7 @@ Page({
       })
       return 1
     } else if (safeCheckResults.status == 0) {
+      const imgAve = that.testImgAve(fileID)
       const faceInfos = await that.findFacesInImg(fileID)
       const corpImgUrls = await that.cropFacesFromImg(fileID, faceInfos)
       wx.hideLoading({})
@@ -65,12 +66,33 @@ Page({
   async uploadToCloudAndCheck(imgPaths) {
     //上传到云存储
     const fileID = await uploadFileToCloud(imgPaths)
-    console.log(fileID)
     //图片安全校验
     const checkResults = await imgSecCheck(fileID)
     const safeCheckResults = checkResults.result
-    console.log(safeCheckResults,'========',fileID)
-    return {safeCheckResults, fileID}
+    return { safeCheckResults, fileID }
+  },
+
+  //获取主色调并更改到视图层
+  async testImgAve(fileID) {
+    const results = await wx.cloud.callFunction({
+      name: 'getMainColor',
+      data: {
+        fileID: fileID,
+      }
+    })
+    const imgAve = results.result.RGB
+    const background = imgAve.replace("0x","#")
+    console.log(imgAve)
+    console.log(background)
+    //获得图片的主色调
+    wx.setNavigationBarColor({
+      backgroundColor: background,
+      frontColor: '#ffffff',
+    })
+    this.setData({
+      background: background
+    })
+    return results.result.RGB
   },
 
   //执行人脸识别
@@ -123,14 +145,6 @@ Page({
     const rpxToPxRatio = 750 / windowWidth   //rpx/px
     const indentationW = (((75 / 375) * windowWidth) / 2) * rpxToPxRatio
     this.data.indentationW = indentationW
-    ////获得图片的主色调
-    // wx.setNavigationBarColor({
-    //   backgroundColor: '#61E6BD',
-    //   frontColor: '#000000',
-    // })
-    // this.setData({
-    //   background: background
-    // })
   },
 
 
