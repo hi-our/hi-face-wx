@@ -1,6 +1,6 @@
 // miniprogram/pages/face-love/face-love.js
-import { uploadFileToCloud, imgSecCheck, faceImgCheck, cropImg } from "../myFunc.js"
-const app = getApp()
+import { imgSecCheck, faceImgCheck, cropImg } from '../myFunc.js'
+import { uploadFileToCloud } from '../../utils/upload'
 
 Page({
   data: {
@@ -9,7 +9,7 @@ Page({
     bigPic: '/images/bigPic.png',
     litPic: '/images/litPic.png',
     facePics: ['/images/1.png', '/images/2.png', '/images/3.png', '/images/2.png', '/images/3.png', '/images/2.png', '/images/3.png', '/images/1.png'],
-    background: "rgb(139, 59, 112)",
+    background: 'rgb(139, 59, 112)',
     indentationW: 75
   },
 

@@ -1,7 +1,3 @@
-const db = wx.cloud.database()
-var openid = getApp().globalData.openid
-
-
 //上传到云存储
 function uploadFileToCloud(filePath) {
   return new Promise(function (resolve, reject) {
