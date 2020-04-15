@@ -9,7 +9,7 @@ function uploadFileToCloud(filePath) {
       cloudPath: (new Date().getTime()) + '.png',
       filePath: filePath,
     }).then(res => {
-      console.log(res)
+      // console.log(res)
       resolve(res.fileID)
     }).catch(err => {
       console.log(err)
@@ -26,7 +26,7 @@ async function imgSecCheck(fileID) {
       fileID: fileID
     }
   })
-  console.log(results)
+  // console.log(results)
   if (typeof (results.result) == "number") {
     results.result = [results.result]
   }
@@ -35,15 +35,15 @@ async function imgSecCheck(fileID) {
 
 //识别人脸
 async function faceImgCheck(fileID) {
-  console.log(fileID)
+  // console.log(fileID)
   const results = await wx.cloud.callFunction({
     name: 'faceImgCheck',
     data: {
       fileID: fileID
     }
   })
-  console.log(results)
-  console.log(results.result.FaceInfos)
+  // console.log(results)
+  // console.log(results.result.FaceInfos)
   return results.result.FaceInfos
 };
 
@@ -53,10 +53,10 @@ async function cropImg(fileID, faceInfos) {
     name: 'cropImg',
     data: {
       fileID: fileID,
-      faceInfos: faceInfos
+      faceInfos: faceInfos,
     }
   })
-  console.log(results)
+  // console.log(results)
   return results
 };
 

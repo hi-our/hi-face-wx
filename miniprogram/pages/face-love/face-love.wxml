@@ -1,14 +1,15 @@
 <!--miniprogram/pages/face-love/face-love.wxml-->
 <view class="box" style="background: -webkit-linear-gradient(top, {{background}}, rgb(51, 42, 63));">
 	<view class="picBox">
-		<image class="bigPic" src="{{bigPic}}" mode="widthFix">
+		<view class="picBox2">
+			<image class="bigPic" src="{{bigPic}}" mode="widthFix"></image>
 			<block wx:if="{{shapeIndex}}" wx:for="{{shapes}}" wx:key="index">
-				<View class="face-line left-top" style="left:{{item.X+indentationW}}rpx; top:{{item.Y+50}}rpx"></View>
-				<View class="face-line right-top" style="left:{{(item.X+item.Width)+indentationW}}rpx; top:{{item.Y+50}}rpx"></View>
-				<View class="face-line left-bottom" style="left:{{item.X+indentationW}}rpx; top:{{(item.Y+item.Height)+50}}rpx;"></View>
-				<View class="face-line right-bottom" style="left:{{(item.X+item.Width)+indentationW}}rpx; top:{{(item.Y+item.Height)+50}}rpx;"></View>
+				<View class="face-line left-top" style="left:{{item.X}}rpx; top:{{item.Y}}rpx"></View>
+				<View class="face-line right-top" style="left:{{item.X+item.Width}}rpx; top:{{item.Y}}rpx"></View>
+				<View class="face-line left-bottom" style="left:{{item.X}}rpx; top:{{item.Y+item.Height}}rpx;"></View>
+				<View class="face-line right-bottom" style="left:{{item.X+item.Width}}rpx; top:{{item.Y+item.Height}}rpx;"></View>
 			</block>
-		</image>
+		</view>
 		<scroll-view class="scanPic" scroll-x>
 			<image class="litPic" src="{{litPic}}" mode="aspectFit"></image>
 			<block wx:for="{{facePics}}" wx:key="index">

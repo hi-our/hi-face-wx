@@ -15,7 +15,6 @@ Page({
 
   async mainFunc(e) {
     let that = this
-    console.log(e)
     const imgPaths = await that.chooseImg()
     wx.showLoading({
       title: '图片处理中...',
@@ -54,7 +53,6 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
     })
-    console.log(temImg)
     that.setData({
       bigPic: temImg.tempFilePaths[0],
       litPic: temImg.tempFilePaths[0],
@@ -82,13 +80,14 @@ Page({
     })
     const imgAve = results.result.RGB
     const background = imgAve.replace("0x","#")
-    console.log(imgAve)
-    console.log(background)
     //获得图片的主色调
     wx.setNavigationBarColor({
       backgroundColor: background,
       frontColor: '#ffffff',
     })
+    //获取裁剪为600x600大小的图片
+    // const temA = await cropImg(fileID, 0, 1)
+    // console.log(temA)
     this.setData({
       background: background
     })
@@ -102,10 +101,10 @@ Page({
     const faceInfos = await faceImgCheck(fileID)
     console.log(faceInfos)
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
-    const indentationW = that.data.indentationW
+    // const indentationW = that.data.indentationW
     that.setData({
       shapeIndex: true,
-      indentationW: indentationW,
+      // indentationW: indentationW,
       shapes: faceInfos
     })
     return faceInfos
@@ -119,16 +118,16 @@ Page({
     const a = await cropImg(fileID, faceInfos)
     console.log(a)
     const absoluteUrls = a.result.UploadResult.ProcessResults.Object
-    console.log(absoluteUrls)
+    // console.log(absoluteUrls)
     if (absoluteUrls.Key) {
       let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls.Key
-      console.log(corpImgUrl)
+      // console.log(corpImgUrl)
       corpImgUrls.push(corpImgUrl)
     } else {
       //拿到裁剪后的图片地址
       for (let i = 0; i < absoluteUrls.length; i++) {
         let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls[i].Key
-        console.log(corpImgUrl)
+        // console.log(corpImgUrl)
         corpImgUrls.push(corpImgUrl)
       }
     }

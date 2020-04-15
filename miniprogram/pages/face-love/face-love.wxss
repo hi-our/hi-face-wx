@@ -3,23 +3,25 @@
 .box {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   position: fixed;
 }
 
-/* 怎么让背景颜色渐变呢 */
 .picBox {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-top: 50rpx;
+  width: 600rpx;
+  margin: 0 auto;
+}
+
+.picBox2 {
+  width: 600rpx;
+  height: auto;
+  position: relative;
 }
 
 .bigPic {
   width: 600rpx;
+  height: 600rpx;
+  position: relative;
 }
 
 .scanPic {
@@ -50,6 +52,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 0px;
 }
 
 .face-line {
