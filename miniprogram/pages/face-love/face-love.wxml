@@ -2,7 +2,7 @@
 <view class="box" style="background: -webkit-linear-gradient(top, {{background}}, rgb(51, 42, 63));">
 	<view class="picBox">
 		<view class="picBox2">
-			<image class="bigPic" mode="widthFix"></image>
+			<image class="bigPic"></image>
 			<view class="face-item" wx:if="{{shapeIndex}}" style="left:{{item.X}}rpx; top:{{item.Y}}rpx; width: {{item.Width}}rpx; height: {{item.Height}}rpx"  wx:for="{{shapes}}" wx:key="index">
 				<View class="face-line left-top"></View>
 				<View class="face-line right-top"></View>
