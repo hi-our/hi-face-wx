@@ -1,3 +1,7 @@
+const db = wx.cloud.database()
+var openid = getApp().globalData.openid
+
+
 //上传到云存储
 function uploadFileToCloud(filePath) {
   return new Promise(function (resolve, reject) {
@@ -38,9 +42,9 @@ async function faceImgCheck(fileID) {
       fileID: fileID
     }
   })
-  // console.log(results)
+  console.log(results)
   // console.log(results.result.FaceInfos)
-  return results.result.FaceInfos
+  return results.result
 };
 
 //裁剪识别的面部图片

@@ -60,6 +60,7 @@
 
 .face-item {
   position: absolute;
+  border:3rpx solid #61E6BD;
 }
 
 .face-line {

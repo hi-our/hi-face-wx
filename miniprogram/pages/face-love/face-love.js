@@ -79,7 +79,7 @@ Page({
       }
     })
     const imgAve = results.result.RGB
-    const background = imgAve.replace("0x","#")
+    const background = imgAve.replace("0x", "#")
     //获得图片的主色调
     wx.setNavigationBarColor({
       backgroundColor: background,
@@ -98,16 +98,17 @@ Page({
   async findFacesInImg(fileID) {
     let that = this
     //图片正常，调用人脸识别，拿到识别到的面部宽高和在图片的位置
-    const faceInfos = await faceImgCheck(fileID)
-    console.log(faceInfos)
+    const { FaceInfos, ImageHeight, ImageWidth } = await faceImgCheck(fileID)
+
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
-    // const indentationW = that.data.indentationW
+    const turnRatio = ImageWidth / 300
+
     that.setData({
       shapeIndex: true,
-      // indentationW: indentationW,
-      shapes: faceInfos
+      shapes: FaceInfos,
+      turnRatio: turnRatio
     })
-    return faceInfos
+    return FaceInfos
   },
 
   //根据拿到的脸部坐标，进行图片裁剪
