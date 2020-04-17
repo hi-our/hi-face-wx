@@ -3,11 +3,11 @@
 	<view class="picBox">
 		<view class="picBox2">
 			<image class="bigPic" src="{{bigPic}}" mode="widthFix"></image>
-			<view class="face-item" wx:if="{{shapeIndex}}" style="left:{{item.X/turnRatio}}px; top:{{item.Y/turnRatio}}px; width: {{item.Width/turnRatio}}px; height: {{item.Height/turnRatio}}px;"  wx:for="{{shapes}}" wx:key="index">
-				<!-- <View class="face-line left-top"></View>
+			<view class="face-item" wx:if="{{shapes.length > 0}}" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;"  wx:for="{{shapes}}" wx:key="index">
+				<View class="face-line left-top"></View>
 				<View class="face-line right-top"></View>
 				<View class="face-line left-bottom"></View>
-				<View class="face-line right-bottom"></View> -->
+				<View class="face-line right-bottom"></View>
 			</view>
 		</view>
 		<scroll-view class="scanPic" scroll-x>

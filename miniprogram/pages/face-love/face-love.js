@@ -98,14 +98,26 @@ Page({
   async findFacesInImg(fileID) {
     let that = this
     //图片正常，调用人脸识别，拿到识别到的面部宽高和在图片的位置
-    const { FaceInfos, ImageHeight, ImageWidth } = await faceImgCheck(fileID)
+    const { FaceInfos, ImageWidth } = await faceImgCheck(fileID)
 
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
-    const turnRatio = ImageWidth / 300
+    const turnRatio = ImageWidth / 600
+    let shapes = FaceInfos.map(face => {
+      const { X, Y, Width, Height } = face
+
+      return {
+        x: X / turnRatio,
+        y: Y / turnRatio,
+        width: Width / turnRatio,
+        height: Height / turnRatio,
+      }
+    })
+
+    console.log('shapes :', shapes);
 
     that.setData({
-      shapeIndex: true,
-      shapes: FaceInfos,
+      currentShapeIndex: 0,
+      shapes,
       turnRatio: turnRatio
     })
     return FaceInfos

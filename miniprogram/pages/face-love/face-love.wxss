@@ -60,32 +60,40 @@
 
 .face-item {
   position: absolute;
-  border:3rpx solid #61E6BD;
+  /* border:3rpx solid #61E6BD; */
 }
 
 .face-line {
   position: absolute;
   opacity: .9;
-  width: 6rpx;
-  height: 6rpx;
+  width: 25%;
+  height: 25%;
 }
 
 .left-top {
-  border-left: 1px solid #61E6BD;
-  border-top: 1px solid #61E6BD;
+  left: 0;
+  top: 0;
+  border-left: 2px solid #61E6BD;
+  border-top: 2px solid #61E6BD;
 }
 
 .right-top {
-  border-right: 1px solid #61E6BD;
-  border-top: 1px solid #61E6BD;
+  right: 0;
+  top: 0;
+  border-right: 2px solid #61E6BD;
+  border-top: 2px solid #61E6BD;
 }
 
 .left-bottom {
-  border-left: 1px solid #61E6BD;
-  border-bottom: 1px solid #61E6BD;
+  left: 0;
+  bottom: 0;
+  border-left: 2px solid #61E6BD;
+  border-bottom: 2px solid #61E6BD;
 }
 
 .right-bottom {
-  border-right: 1px solid #61E6BD;
-  border-bottom: 1px solid #61E6BD;
+  right: 0;
+  bottom: 0;
+  border-right: 2px solid #61E6BD;
+  border-bottom: 2px solid #61E6BD;
 }
