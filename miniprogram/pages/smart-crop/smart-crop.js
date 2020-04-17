@@ -1,5 +1,4 @@
-// miniprogram/pages/face-love/face-love.js
-import { imgSecCheck, faceImgCheck, cropImg } from '../myFunc.js'
+import { imgSecCheck } from '../myFunc.js'
 import { uploadFileToCloud } from '../../utils/upload'
 
 Page({
@@ -10,48 +9,56 @@ Page({
     faceScaned3: '/images/3.jpg',
   },
 
-  async mainFunc(e) {
-    let that = this
-    const imgPaths = await that.chooseImg()
+  async mainFunc() {
+
+    const imgPaths = await this.chooseImg()
     wx.showLoading({
       title: '图片处理中...',
     })
-    const { safeCheckResults, fileID } = await that.uploadToCloudAndCheck(imgPaths)
-    if (safeCheckResults.status === -1000) {//图片违禁
-      wx.hideLoading({})
+
+    const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPaths)
+    wx.hideLoading()
+
+    // 这里先处理正常的，再处理异常
+    if (safeCheckResults.status === 0) {
+      await this.zoomImg(fileID)
+      return
+    }
+    
+    //图片违禁
+    if (safeCheckResults.status === -1000) {
       wx.showModal({
         title: '提示',
         content: '图片含违禁内容，请更换图片',
         showCancel: false,
       })
       return 1
-    } else if (safeCheckResults.status == 0) {
-      const zoomImgs = await that.zoomImg(fileID)
-      wx.hideLoading({})
-      return
-    } else {//图片安全校验出错
-      wx.hideLoading({})
-      wx.showModal({
-        title: '提示',
-        content: '图片校验出错，请重试',
-        showCancel: false,
-      })
-      return 1
     }
+
+    //图片安全校验出错
+    wx.showModal({
+      title: '提示',
+      content: '图片校验出错，请重试',
+      showCancel: false,
+    })
+
   },
 
   //选择图片
   async chooseImg() {
-    var that = this
+
     const temImg = await wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
     })
-    that.setData({
-      bigPic: temImg.tempFilePaths[0]
+
+    let bigPic = temImg.tempFilePaths[0]
+    this.setData({
+      bigPic: bigPic
     })
-    return temImg.tempFilePaths[0]
+
+    return bigPic
   },
 
   //上传到云存储，并校验图片安全
@@ -75,16 +82,15 @@ Page({
     })
     const zoomImgs = res.result.UploadResult.ProcessResults.Object
     console.log(zoomImgs)
-    const faceScaned1 = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + zoomImgs[0].Key
-    const faceScaned2 = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + zoomImgs[1].Key
-    const faceScaned3 = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + zoomImgs[2].Key
-    console.log(faceScaned1)
+
+    let cloudPrefix = 'cloud://development-9p1it.6465-development-9p1it-1301318001/'
+
+
     that.setData({
-      faceScaned1: faceScaned1,
-      faceScaned2: faceScaned2,
-      faceScaned3: faceScaned3
+      faceScaned1: cloudPrefix + zoomImgs[0].Key,
+      faceScaned2: cloudPrefix + zoomImgs[1].Key,
+      faceScaned3: cloudPrefix + zoomImgs[2].Key,
     })
-    return 0
   },
 
   onShareAppMessage: function () {
