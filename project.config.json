@@ -6,6 +6,7 @@
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
@@ -19,7 +20,8 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"nodeModules": true
 	},
 	"appid": "wxa9fd763cad459203",
 	"projectname": "goddess-hat",

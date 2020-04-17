@@ -1,0 +1,139 @@
+/* miniprogram/pages/smartCrop/smartCrop.wxss */
+/* miniprogram/pages/face-love/face-love.wxss */
+page {
+  width: 100%;
+  height: 100%;
+}
+
+.box {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  background: rgb(246, 246, 246);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.textBox{
+  top: 0px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.description1{
+  font-size: 13px;
+  font-weight: normal;
+  color: rgb(200, 200, 200);
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+  text-align: center;
+}
+
+.description{
+  font-size: 13px;
+  font-weight: normal;
+  color: rgb(180, 180, 180);
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+  text-align: center;
+}
+
+.picBox {
+  padding-top: 50rpx;
+  width: 600rpx;
+  margin: 0 auto;
+  height: auto;
+  position: relative;
+}
+
+.bigPic {
+  width: 600rpx;
+  height: 600rpx;
+  position: relative;
+}
+
+.upload {
+  background: rgb(82,163,68)!important;
+  color: white;
+  width: 50%;
+  border-radius: 6px;
+  margin-top: 30rpx;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.scanPic {
+  width: 600rpx;
+  white-space: nowrap;
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.faceScaned1 {
+  margin-right: 12rpx;
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.faceScaned2 {
+  margin-right: 12rpx;
+  width: 220rpx;
+  height: 200rpx;
+}
+
+.faceScaned3 {
+  margin-right: 12rpx;
+  width: 200rpx;
+  height: 150rpx;
+}
+
+.face-item {
+  position: absolute;
+  /* border:3rpx solid #61E6BD; */
+}
+
+.face-line {
+  position: absolute;
+  opacity: .9;
+  width: 25%;
+  height: 25%;
+}
+
+.left-top {
+  left: 0;
+  top: 0;
+  border-left: 2px solid #61E6BD;
+  border-top: 2px solid #61E6BD;
+}
+
+.right-top {
+  right: 0;
+  top: 0;
+  border-right: 2px solid #61E6BD;
+  border-top: 2px solid #61E6BD;
+}
+
+.left-bottom {
+  left: 0;
+  bottom: 0;
+  border-left: 2px solid #61E6BD;
+  border-bottom: 2px solid #61E6BD;
+}
+
+.right-bottom {
+  right: 0;
+  bottom: 0;
+  border-right: 2px solid #61E6BD;
+  border-bottom: 2px solid #61E6BD;
+}
