@@ -10,7 +10,7 @@ Page({
     litPic: '/images/litPic.png',
     facePics: ['/images/1.png', '/images/2.png', '/images/3.png', '/images/2.png', '/images/3.png', '/images/2.png', '/images/3.png', '/images/1.png'],
     background: 'rgb(139, 59, 112)',
-    indentationW: 75
+    // indentationW: 75
   },
 
   async mainFunc(e) {
@@ -118,7 +118,6 @@ Page({
     that.setData({
       currentShapeIndex: 0,
       shapes,
-      turnRatio: turnRatio
     })
     return FaceInfos
   },
@@ -152,11 +151,11 @@ Page({
   },
 
   onLoad: function (options) {
-    const { windowWidth, windowHeight } = wx.getSystemInfoSync()
-    console.log(windowWidth, windowHeight)
-    const rpxToPxRatio = 750 / windowWidth   //rpx/px
-    const indentationW = (((75 / 375) * windowWidth) / 2) * rpxToPxRatio
-    this.data.indentationW = indentationW
+    // const { windowWidth, windowHeight } = wx.getSystemInfoSync()
+    // console.log(windowWidth, windowHeight)
+    // const rpxToPxRatio = 750 / windowWidth   //rpx/px
+    // const indentationW = (((75 / 375) * windowWidth) / 2) * rpxToPxRatio
+    // this.data.indentationW = indentationW
   },
 
 
