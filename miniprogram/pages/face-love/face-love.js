@@ -6,9 +6,9 @@ Page({
   data: {
     shapeIndex: false,
     shapes: [],
-    bigPic: '/images/bigPic.png',
-    litPic: '/images/litPic.png',
-    facePics: ['/images/1.png', '/images/2.png', '/images/3.png', '/images/2.png', '/images/3.png', '/images/2.png', '/images/3.png', '/images/1.png'],
+    bigPic: '/images/bigPic.jpg',
+    litPic: '/images/bigPic.jpg',
+    facePics: ['/images/1.jpg', '/images/2.jpg', '/images/3.jpg', '/images/2.jpg', '/images/3.jpg', '/images/2.jpg', '/images/3.jpg'],
     background: 'rgb(139, 59, 112)',
     // indentationW: 75
   },
