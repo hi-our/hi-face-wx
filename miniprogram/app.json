@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/face-love/face-love",
+    "pages/detect-face/detect-face",
     "pages/smart-crop/smart-crop",
     "pages/christmas-hat/christmas-hat",
     "pages/thanks/thanks"

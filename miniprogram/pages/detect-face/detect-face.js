@@ -20,26 +20,26 @@ Page({
     })
     const { safeCheckResults, fileID } = await that.uploadToCloudAndCheck(imgPaths)
     if (safeCheckResults.status === -1000) {//图片违禁
-      wx.hideLoading({})
+      wx.hideLoading()
       wx.showModal({
         title: '提示',
         content: '图片含违禁内容，请更换图片',
         showCancel: false,
       })
-      return 1
+      return
     } else if (safeCheckResults.status == 0) {
       const faceInfos = await that.findFacesInImg(fileID)
       await that.getImgAveAndFaces(fileID, faceInfos)
-      wx.hideLoading({})
-      return 0
+      wx.hideLoading()
+      return
     } else {//图片安全校验出错
-      wx.hideLoading({})
+      wx.hideLoading()
       wx.showModal({
         title: '提示',
         content: '图片校验出错，请重试',
         showCancel: false,
       })
-      return 1
+      return
     }
   },
 
