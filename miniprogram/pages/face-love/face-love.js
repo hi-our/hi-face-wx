@@ -151,11 +151,6 @@ Page({
   },
 
   onLoad: function (options) {
-    // const { windowWidth, windowHeight } = wx.getSystemInfoSync()
-    // console.log(windowWidth, windowHeight)
-    // const rpxToPxRatio = 750 / windowWidth   //rpx/px
-    // const indentationW = (((75 / 375) * windowWidth) / 2) * rpxToPxRatio
-    // this.data.indentationW = indentationW
   },
 
 
