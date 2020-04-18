@@ -26,12 +26,12 @@ Page({
         content: '图片含违禁内容，请更换图片',
         showCancel: false,
       })
-      return
+
     } else if (safeCheckResults.status == 0) {
       const faceInfos = await that.findFacesInImg(fileID)
       await that.getImgAveAndFaces(fileID, faceInfos)
       wx.hideLoading()
-      return
+
     } else {//图片安全校验出错
       wx.hideLoading()
       wx.showModal({
@@ -39,7 +39,7 @@ Page({
         content: '图片校验出错，请重试',
         showCancel: false,
       })
-      return
+
     }
   },
 
@@ -121,7 +121,7 @@ Page({
       let picUrl = 'data:image/png;base64,' + base64Mains[i]
       facePics.push(picUrl)
     }
-    
+
     this.setData({
       background: background,
       facePics: facePics
