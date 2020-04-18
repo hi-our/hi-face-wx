@@ -10,7 +10,6 @@ Page({
     litPic: '/images/bigPic.jpg',
     facePics: ['/images/1.jpg', '/images/2.jpg', '/images/3.jpg', '/images/2.jpg', '/images/3.jpg', '/images/2.jpg', '/images/3.jpg'],
     background: 'rgb(139, 59, 112)',
-    // indentationW: 75
   },
 
   async mainFunc(e) {
@@ -30,7 +29,7 @@ Page({
       return 1
     } else if (safeCheckResults.status == 0) {
       const faceInfos = await that.findFacesInImg(fileID)
-      const { RGB, base64Main, fileContent } = await that.getImgAveAndFaces(fileID, faceInfos)
+      await that.getImgAveAndFaces(fileID, faceInfos)
       wx.hideLoading({})
       return 0
     } else {//图片安全校验出错
@@ -107,7 +106,7 @@ Page({
       }
     })
 
-    const { RGB, base64Mains, fileContents } = results.result
+    const { RGB, base64Mains } = results.result
     const background = RGB.replace("0x", "#")
 
     //更改视图层的主色调
@@ -119,7 +118,7 @@ Page({
     //将base64Main展示在视图层
     let facePics = []
     for (let i = 0; i < base64Mains.length; i++) {
-      let picUrl = "data:image/png;base64," + base64Mains[i]
+      let picUrl = 'data:image/png;base64,' + base64Mains[i]
       facePics.push(picUrl)
     }
     
