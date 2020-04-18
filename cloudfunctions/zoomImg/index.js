@@ -1,9 +1,10 @@
 // 云函数入口文件
 const extCi = require('@cloudbase/extension-ci');
 const tcb = require('tcb-admin-node');
+const cloud = require('wx-server-sdk')
 
 tcb.init({
-  env: 'development-9p1it'
+  env: cloud.DYNAMIC_CURRENT_ENV //env: 'development-9p1it'
 })
 
 tcb.registerExtension(extCi)

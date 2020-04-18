@@ -3,7 +3,7 @@ const cloud = require('wx-server-sdk')
 const tencentcloud = require("tencentcloud-sdk-nodejs");
 const config = require('./config');
 cloud.init({
-  env: 'development-9p1it'
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 let secretId = config.SecretId || ''

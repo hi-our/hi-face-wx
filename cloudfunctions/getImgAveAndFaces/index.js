@@ -1,8 +1,9 @@
 const tcb = require('tcb-admin-node')
 const fetch = require('axios')
+const cloud = require('wx-server-sdk')
 
 tcb.init({
-  env: "development-9p1it"
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 exports.main = async (event, context) => {

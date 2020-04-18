@@ -6,11 +6,11 @@ const cloud = require('wx-server-sdk');
 //let fileContent = imageBuffer; // Uint8Array|Buffer格式图像内容
 
 tcb.init({
-  env: 'development-9p1it'
+  env: cloud.DYNAMIC_CURRENT_ENV
 });
 
 cloud.init({
-  env: 'development-9p1it'
+  env: cloud.DYNAMIC_CURRENT_ENV
 })
 tcb.registerExtension(extCi);
 
