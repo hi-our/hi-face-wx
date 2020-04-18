@@ -63,6 +63,13 @@
 					"id": -1,
 					"name": "pages/christmas-hat/christmas-hat",
 					"pathName": "pages/christmas-hat/christmas-hat",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/smart-crop/smart-crop",
+					"pathName": "pages/smart-crop/smart-crop",
 					"scene": null
 				}
 			]

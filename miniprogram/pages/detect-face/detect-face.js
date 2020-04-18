@@ -1,5 +1,5 @@
 // miniprogram/pages/face-love/face-love.js
-import { imgSecCheck, faceImgCheck, cropImg } from '../myFunc.js'
+import { imgSecCheck, faceImgCheck } from '../myFunc.js'
 import { uploadFileToCloud } from '../../utils/upload'
 
 Page({
@@ -8,69 +8,89 @@ Page({
     shapes: [],
     bigPic: '/images/bigPic.jpg',
     litPic: '/images/bigPic.jpg',
-    facePics: ['/images/1.jpg', '/images/2.jpg', '/images/3.jpg', '/images/2.jpg', '/images/3.jpg', '/images/2.jpg', '/images/3.jpg'],
+    facePics: [1, 2, 3].map(item => `/images/${item}.jpg`),
     background: 'rgb(139, 59, 112)',
   },
+  onShareAppMessage: function () {
+    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
 
-  async mainFunc(e) {
-    let that = this
-    const imgPaths = await that.chooseImg()
+    return {
+      title: '人像魅力',
+      imageUrl: DEFAULT_SHARE_COVER,
+      path: '/pages/detect-face/detect-face'
+    }
+  },
+
+  async mainFunc() {
+
+    const imgPaths = await this.chooseImg()
+
     wx.showLoading({
       title: '图片处理中...',
     })
-    const { safeCheckResults, fileID } = await that.uploadToCloudAndCheck(imgPaths)
-    if (safeCheckResults.status === -1000) {//图片违禁
+
+    const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPaths)
+
+    if (safeCheckResults.status === 0) {
+      const faceInfos = await this.findFacesInImg(fileID)
+      await this.getImgAveAndFaces(fileID, faceInfos)
+      wx.hideLoading()
+      return
+    }
+
+    //图片违禁
+    if (safeCheckResults.status === -1000) {
       wx.hideLoading()
       wx.showModal({
         title: '提示',
         content: '图片含违禁内容，请更换图片',
         showCancel: false,
       })
-
-    } else if (safeCheckResults.status == 0) {
-      const faceInfos = await that.findFacesInImg(fileID)
-      await that.getImgAveAndFaces(fileID, faceInfos)
-      wx.hideLoading()
-
-    } else {//图片安全校验出错
-      wx.hideLoading()
-      wx.showModal({
-        title: '提示',
-        content: '图片校验出错，请重试',
-        showCancel: false,
-      })
-
+      return
     }
+
+    wx.hideLoading()
+    wx.showModal({
+      title: '提示',
+      content: '图片校验出错，请重试',
+      showCancel: false,
+    })
   },
 
   //选择图片
   async chooseImg() {
-    var that = this
     const temImg = await wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
     })
-    that.setData({
-      bigPic: temImg.tempFilePaths[0],
-      litPic: temImg.tempFilePaths[0],
+    let bigPic = temImg.tempFilePaths[0]
+
+    this.setData({
+      bigPic,
+      litPic: bigPic,
     })
-    return temImg.tempFilePaths[0]
+
+    return bigPic
   },
 
   //上传到云存储，并校验图片安全
   async uploadToCloudAndCheck(imgPaths) {
     //上传到云存储
     const fileID = await uploadFileToCloud(imgPaths)
+
     //图片安全校验
-    const checkResults = await imgSecCheck(fileID)
-    const safeCheckResults = checkResults.result
-    return { safeCheckResults, fileID }
+    const { result } = await imgSecCheck(fileID)
+
+    return {
+      safeCheckResults: result,
+      fileID
+    }
   },
 
   //执行人脸识别
   async findFacesInImg(fileID) {
-    let that = this
+
     //图片正常，调用人脸识别，拿到识别到的面部宽高和在图片的位置
     const { FaceInfos, ImageWidth } = await faceImgCheck(fileID)
 
@@ -87,9 +107,9 @@ Page({
       }
     })
 
-    console.log('shapes :', shapes);
+    console.log('shapes :', shapes)
 
-    that.setData({
+    this.setData({
       currentShapeIndex: 0,
       shapes,
     })
@@ -106,8 +126,8 @@ Page({
       }
     })
 
-    const { RGB, base64Mains } = results.result
-    const background = RGB.replace("0x", "#")
+    const { RGB = '', base64Mains = [] } = results.result
+    const background = RGB.replace('0x', '#')
 
     //更改视图层的主色调
     wx.setNavigationBarColor({
@@ -116,23 +136,11 @@ Page({
     })
 
     //将base64Main展示在视图层
-    let facePics = []
-    for (let i = 0; i < base64Mains.length; i++) {
-      let picUrl = 'data:image/png;base64,' + base64Mains[i]
-      facePics.push(picUrl)
-    }
+    let facePics = base64Mains.map(item => `'data:image/png;base64, ${item}]`)
 
     this.setData({
-      background: background,
-      facePics: facePics
+      background,
+      facePics
     })
-
-    return results.result
   },
-
-  onLoad: function (options) {
-  },
-
-  onShareAppMessage: function () {
-  }
 })

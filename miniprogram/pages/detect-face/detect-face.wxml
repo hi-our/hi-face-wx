@@ -12,9 +12,7 @@
 		</view>
 		<scroll-view class="scanPic" scroll-x>
 			<image class="litPic" src="{{litPic}}" mode="aspectFit"></image>
-			<block wx:for="{{facePics}}" wx:key="index">
-				<image class="faceScaned" src="{{item}}" mode="aspectFit"></image>
-			</block>
+			<image  wx:for="{{facePics}}" wx:key="index" class="litPic" src="{{item}}" mode="aspectFit"></image>
 		</scroll-view>
 	</view>
 	<view class="uploadPic" bindtap="mainFunc">上传</view>
