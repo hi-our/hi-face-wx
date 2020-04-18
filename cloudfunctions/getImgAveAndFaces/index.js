@@ -14,13 +14,19 @@ exports.main = async (event, context) => {
   const RGB = res1.data.RGB
 
   //part2：拿到裁剪后的图片
-  const { X, Y, Width, Height } = faceInfos[0]
-  const res = await fetch.get(imgUrl +  "?imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y, { responseType: 'arraybuffer' })
-  console.log(res)
-  const fileContent = new Buffer(res.data, 'binary')
-  const base64Main = fileContent.toString('base64')
+  let base64Mains = []
+  let fileContents = []
+  for (let i = 0; i < faceInfos.length; i++) {
+    const { X, Y, Width, Height } = faceInfos[i]
+    const res = await fetch.get(imgUrl + "?imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y, { responseType: 'arraybuffer' })
+    console.log(res)
+    const fileContent = new Buffer(res.data, 'binary')
+    const base64Main = fileContent.toString('base64')
+    base64Mains.push(base64Main)
+    fileContents.push(fileContent)
+  }
 
-  return { RGB, base64Main, fileContent }
+  return { RGB, base64Mains, fileContents }
 }
 
 const getImageUrl = async (fileID) => {

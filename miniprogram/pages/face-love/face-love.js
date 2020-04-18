@@ -30,7 +30,7 @@ Page({
       return 1
     } else if (safeCheckResults.status == 0) {
       const faceInfos = await that.findFacesInImg(fileID)
-      const { RGB, base64Main, fileContent } = await that.testImgAve(fileID, faceInfos)
+      const { RGB, base64Main, fileContent } = await that.getImgAveAndFaces(fileID, faceInfos)
       wx.hideLoading({})
       return 0
     } else {//图片安全校验出错
@@ -69,35 +69,6 @@ Page({
     return { safeCheckResults, fileID }
   },
 
-  //获取主色调并更改到视图层
-  async testImgAve(fileID, faceInfos) {
-    const results = await wx.cloud.callFunction({
-      name: 'getMainColor',
-      data: {
-        fileID: fileID,
-        faceInfos: faceInfos
-      }
-    })
-
-    const { RGB, base64Main, fileContent } = results.result
-    const background = RGB.replace("0x", "#")
-
-    //更改视图层的主色调
-    wx.setNavigationBarColor({
-      backgroundColor: background,
-      frontColor: '#ffffff',
-    })
-
-    //将base64Main展示在视图层
-    let picUrl = "data:image/png;base64," + base64Main
-    this.setData({
-      background: background,
-      facePics: [picUrl]
-    })
-
-    return results.result
-  },
-
   //执行人脸识别
   async findFacesInImg(fileID) {
     let that = this
@@ -126,89 +97,43 @@ Page({
     return FaceInfos
   },
 
-  //根据拿到的脸部坐标，进行图片裁剪
-  async cropFacesFromImg(imgUrl, faceInfos) {
-    let that = this
-    let corpImgUrls = []
-    console.log(imgUrl) //https://6465-development-9p1it-1301318001.tcb.qcloud.la/1587209749578.png
-    const res = await fetch.get(imgUrl + '?imageAve')
-    console.log(res)
-    //拿到识别到的面部宽高和在图片的位置dx、dy后，调用裁剪函数
+  //获取主色调+人脸图，并更改到视图层
+  async getImgAveAndFaces(fileID, faceInfos) {
+    const results = await wx.cloud.callFunction({
+      name: 'getImgAveAndFaces',
+      data: {
+        fileID: fileID,
+        faceInfos: faceInfos
+      }
+    })
 
+    const { RGB, base64Mains, fileContents } = results.result
+    const background = RGB.replace("0x", "#")
 
-    // const a = await cropImg(fileID, faceInfos)
-    // console.log(a)
-    // const absoluteUrls = a.result.UploadResult.ProcessResults.Object
-    // // console.log(absoluteUrls)
-    // if (absoluteUrls.Key) {
-    //   let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls.Key
-    //   // console.log(corpImgUrl)
-    //   corpImgUrls.push(corpImgUrl)
-    // } else {
-    //   //拿到裁剪后的图片地址
-    //   for (let i = 0; i < absoluteUrls.length; i++) {
-    //     let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls[i].Key
-    //     // console.log(corpImgUrl)
-    //     corpImgUrls.push(corpImgUrl)
-    //   }
-    // }
-    // console.log(corpImgUrls)
-    // that.setData({
-    //   facePics: corpImgUrls
-    // })
-    // return corpImgUrls
+    //更改视图层的主色调
+    wx.setNavigationBarColor({
+      backgroundColor: background,
+      frontColor: '#ffffff',
+    })
+
+    //将base64Main展示在视图层
+    let facePics = []
+    for (let i = 0; i < base64Mains.length; i++) {
+      let picUrl = "data:image/png;base64," + base64Mains[i]
+      facePics.push(picUrl)
+    }
+    
+    this.setData({
+      background: background,
+      facePics: facePics
+    })
+
+    return results.result
   },
 
   onLoad: function (options) {
   },
 
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
   onShareAppMessage: function () {
-
   }
 })
