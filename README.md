@@ -1,4 +1,6 @@
-口罩小程序请前往 https://github.com/shenghanqin/quickly-mask
+口罩小程序请前往 https://github.com/hi-our/hi-face-wx
+
+<!-- TODO 文档还需要阿欢来补充 -->
 
 
 # 云开发 quickstart
