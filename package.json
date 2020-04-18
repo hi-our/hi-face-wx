@@ -1,10 +1,10 @@
 {
-  "name": "goddess-hat-local",
+  "name": "hi-face-wx-local",
   "version": "0.1.0",
   "description": "圣诞帽，智能美颜，个人中心，海报",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shenghanqin/goddess-hat.git"
+    "url": "git+https://github.com/hi-our/hi-face-wx.git"
   },
   "keywords": [
     "圣诞帽，智能美颜，个人中心，海报"
@@ -12,9 +12,9 @@
   "author": "shenghanqin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shenghanqin/goddess-hat/issues"
+    "url": "https://github.com/hi-our/hi-face-wx/issues"
   },
-  "homepage": "https://github.com/shenghanqin/goddess-hat#readme",
+  "homepage": "hhttps://github.com/hi-our/hi-face-wx#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "eslint": "^4.19.1",
