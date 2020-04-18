@@ -9,6 +9,16 @@ Page({
     faceScaned3: '/images/3.jpg',
   },
 
+  onShareAppMessage: function () {
+    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
+
+    return {
+      title: '人像魅力',
+      imageUrl: DEFAULT_SHARE_COVER,
+      path: '/pages/smart-crop/smart-crop'
+    }
+  },
+
   async mainFunc() {
 
     const imgPaths = await this.chooseImg()
@@ -91,8 +101,5 @@ Page({
       faceScaned2: cloudPrefix + zoomImgs[1].Key,
       faceScaned3: cloudPrefix + zoomImgs[2].Key,
     })
-  },
-
-  onShareAppMessage: function () {
   }
 })
