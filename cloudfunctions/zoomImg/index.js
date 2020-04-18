@@ -3,8 +3,10 @@ const extCi = require('@cloudbase/extension-ci');
 const tcb = require('tcb-admin-node');
 const cloud = require('wx-server-sdk')
 
+let env = process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
+
 tcb.init({
-  env: cloud.DYNAMIC_CURRENT_ENV //env: 'development-9p1it'
+  env
 })
 
 tcb.registerExtension(extCi)

@@ -1,9 +1,10 @@
 const tcb = require('tcb-admin-node')
 const fetch = require('axios')
-const cloud = require('wx-server-sdk')
+
+let env = process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
 
 tcb.init({
-  env: cloud.DYNAMIC_CURRENT_ENV
+  env
 })
 
 exports.main = async (event, context) => {
@@ -34,6 +35,7 @@ const getImageUrl = async (fileID) => {
   const { fileList } = await tcb.getTempFileURL({
     fileList: [fileID]
   })
+  console.log(fileList)
   return fileList[0].tempFileURL
 }
 

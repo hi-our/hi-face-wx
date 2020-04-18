@@ -118,6 +118,7 @@ Page({
 
   //获取主色调+人脸图，并更改到视图层
   async getImgAveAndFaces(fileID, faceInfos) {
+    console.log(faceInfos)
     const results = await wx.cloud.callFunction({
       name: 'getImgAveAndFaces',
       data: {
