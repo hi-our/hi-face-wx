@@ -9,8 +9,8 @@ exports.main = async (event, context) => {
   const { fileID } = event
   const imgUrl = await getImageUrl(fileID)
   const res = await fetch.get(imgUrl + '?imageAve')
-  console.log(res)
-  return res.data
+  const RGB = res.data.RGB
+  return { RGB, imgUrl }
 }
 
 const getImageUrl = async (fileID) => {
