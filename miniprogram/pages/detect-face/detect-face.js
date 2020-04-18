@@ -136,7 +136,7 @@ Page({
     })
 
     //将base64Main展示在视图层
-    let facePics = base64Mains.map(item => `'data:image/png;base64, ${item}]`)
+    let facePics = base64Mains.map(item => `data:image/png;base64,${item}`)
 
     this.setData({
       background,
