@@ -29,11 +29,10 @@ Page({
       })
       return 1
     } else if (safeCheckResults.status == 0) {
-      const imgAve = that.testImgAve(fileID)
       const faceInfos = await that.findFacesInImg(fileID)
-      const corpImgUrls = await that.cropFacesFromImg(fileID, faceInfos)
+      const { RGB, base64Main, fileContent } = await that.testImgAve(fileID, faceInfos)
       wx.hideLoading({})
-      return corpImgUrls
+      return 0
     } else {//图片安全校验出错
       wx.hideLoading({})
       wx.showModal({
@@ -71,27 +70,32 @@ Page({
   },
 
   //获取主色调并更改到视图层
-  async testImgAve(fileID) {
+  async testImgAve(fileID, faceInfos) {
     const results = await wx.cloud.callFunction({
       name: 'getMainColor',
       data: {
         fileID: fileID,
+        faceInfos: faceInfos
       }
     })
-    const imgAve = results.result.RGB
-    const background = imgAve.replace("0x", "#")
-    //获得图片的主色调
+
+    const { RGB, base64Main, fileContent } = results.result
+    const background = RGB.replace("0x", "#")
+
+    //更改视图层的主色调
     wx.setNavigationBarColor({
       backgroundColor: background,
       frontColor: '#ffffff',
     })
-    //获取裁剪为600x600大小的图片
-    // const temA = await cropImg(fileID, 0, 1)
-    // console.log(temA)
+
+    //将base64Main展示在视图层
+    let picUrl = "data:image/png;base64," + base64Main
     this.setData({
-      background: background
+      background: background,
+      facePics: [picUrl]
     })
-    return results.result.RGB
+
+    return results.result
   },
 
   //执行人脸识别
@@ -123,31 +127,36 @@ Page({
   },
 
   //根据拿到的脸部坐标，进行图片裁剪
-  async cropFacesFromImg(fileID, faceInfos) {
+  async cropFacesFromImg(imgUrl, faceInfos) {
     let that = this
     let corpImgUrls = []
+    console.log(imgUrl) //https://6465-development-9p1it-1301318001.tcb.qcloud.la/1587209749578.png
+    const res = await fetch.get(imgUrl + '?imageAve')
+    console.log(res)
     //拿到识别到的面部宽高和在图片的位置dx、dy后，调用裁剪函数
-    const a = await cropImg(fileID, faceInfos)
-    console.log(a)
-    const absoluteUrls = a.result.UploadResult.ProcessResults.Object
-    // console.log(absoluteUrls)
-    if (absoluteUrls.Key) {
-      let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls.Key
-      // console.log(corpImgUrl)
-      corpImgUrls.push(corpImgUrl)
-    } else {
-      //拿到裁剪后的图片地址
-      for (let i = 0; i < absoluteUrls.length; i++) {
-        let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls[i].Key
-        // console.log(corpImgUrl)
-        corpImgUrls.push(corpImgUrl)
-      }
-    }
-    console.log(corpImgUrls)
-    that.setData({
-      facePics: corpImgUrls
-    })
-    return corpImgUrls
+
+
+    // const a = await cropImg(fileID, faceInfos)
+    // console.log(a)
+    // const absoluteUrls = a.result.UploadResult.ProcessResults.Object
+    // // console.log(absoluteUrls)
+    // if (absoluteUrls.Key) {
+    //   let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls.Key
+    //   // console.log(corpImgUrl)
+    //   corpImgUrls.push(corpImgUrl)
+    // } else {
+    //   //拿到裁剪后的图片地址
+    //   for (let i = 0; i < absoluteUrls.length; i++) {
+    //     let corpImgUrl = 'cloud://development-9p1it.6465-development-9p1it-1301318001/' + absoluteUrls[i].Key
+    //     // console.log(corpImgUrl)
+    //     corpImgUrls.push(corpImgUrl)
+    //   }
+    // }
+    // console.log(corpImgUrls)
+    // that.setData({
+    //   facePics: corpImgUrls
+    // })
+    // return corpImgUrls
   },
 
   onLoad: function (options) {

@@ -6,11 +6,21 @@ tcb.init({
 })
 
 exports.main = async (event, context) => {
-  const { fileID } = event
+  const { fileID, faceInfos } = event
   const imgUrl = await getImageUrl(fileID)
-  const res = await fetch.get(imgUrl + '?imageAve')
-  const RGB = res.data.RGB
-  return { RGB, imgUrl }
+
+  //part1：拿到主色调
+  const res1 = await fetch.get(imgUrl + '?imageAve')
+  const RGB = res1.data.RGB
+
+  //part2：拿到裁剪后的图片
+  const { X, Y, Width, Height } = faceInfos[0]
+  const res = await fetch.get(imgUrl +  "?imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y, { responseType: 'arraybuffer' })
+  console.log(res)
+  const fileContent = new Buffer(res.data, 'binary')
+  const base64Main = fileContent.toString('base64')
+
+  return { RGB, base64Main, fileContent }
 }
 
 const getImageUrl = async (fileID) => {
