@@ -34,10 +34,10 @@ async function imgSecCheck(fileID) {
 };
 
 //识别人脸
-async function faceImgCheck(fileID) {
+async function faceDetect(fileID) {
   // console.log(fileID)
   const results = await wx.cloud.callFunction({
-    name: 'faceImgCheck',
+    name: 'faceDetect',
     data: {
       fileID: fileID
     }
@@ -64,6 +64,6 @@ async function cropImg(fileID, faceInfos) {
 module.exports = {
   uploadFileToCloud: uploadFileToCloud,
   imgSecCheck: imgSecCheck,
-  faceImgCheck: faceImgCheck,
+  faceDetect: faceDetect,
   cropImg: cropImg
 }
