@@ -93,6 +93,7 @@ Page({
     const zoomImgs = res.result.UploadResult.ProcessResults.Object
     console.log(zoomImgs)
 
+    // TODO，这里再改改
     let cloudPrefix = 'cloud://development-9p1it.6465-development-9p1it-1301318001/'
 
 
