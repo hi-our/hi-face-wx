@@ -1,5 +1,5 @@
 // miniprogram/pages/face-love/face-love.js
-import { imgSecCheck, faceImgCheck } from '../myFunc.js'
+import { imgSecCheck, faceDetect } from '../myFunc.js'
 import { uploadFileToCloud } from '../../utils/upload'
 
 Page({
@@ -92,7 +92,7 @@ Page({
   async findFacesInImg(fileID) {
 
     //图片正常，调用人脸识别，拿到识别到的面部宽高和在图片的位置
-    const { FaceInfos, ImageWidth } = await faceImgCheck(fileID)
+    const { FaceInfos, ImageWidth } = await faceDetect(fileID)
 
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
     const turnRatio = ImageWidth / 600
