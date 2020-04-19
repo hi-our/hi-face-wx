@@ -19,38 +19,52 @@ Page({
   },
 
   async mainFunc() {
+    try {
+      const imgPaths = await this.chooseImg()
 
-    const imgPaths = await this.chooseImg()
-    wx.showLoading({
-      title: '图片处理中...',
-    })
+      wx.showLoading({
+        title: '图片处理中...',
+      })
 
-    const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPaths)
-    wx.hideLoading()
+      const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPaths)
+      wx.hideLoading()
 
-    // 这里先处理正常的，再处理异常
-    if (safeCheckResults.status === 0) {
-      await this.zoomImg(fileID)
-      return
-    }
+      // 这里先处理正常的，再处理异常
+      if (safeCheckResults.status === 0) {
+        await this.zoomImg(fileID)
+        return
+      }
 
-    //图片违禁
-    if (safeCheckResults.status === -1000) {
+      //图片违禁
+      if (safeCheckResults.status === -1000) {
+        wx.showModal({
+          title: '提示',
+          content: '图片含违禁内容，请更换图片',
+          showCancel: false,
+        })
+        return
+      }
+
+      //图片安全校验出错
       wx.showModal({
         title: '提示',
-        content: '图片含违禁内容，请更换图片',
+        content: '图片校验出错，请重试',
         showCancel: false,
       })
-      return
+    } catch (err) {
+      console.log(err)
+      wx.showToast({
+        title: '页面出错',
+        icon: 'none',
+        duration: 2000,
+        success() {
+          setTimeout(
+            wx.reLaunch({
+              url: 'pages/smart-crop/smart-crop',
+            }), 2000)
+        }
+      })
     }
-
-    //图片安全校验出错
-    wx.showModal({
-      title: '提示',
-      content: '图片校验出错，请重试',
-      showCancel: false,
-    })
-
   },
 
   //选择图片
@@ -71,7 +85,7 @@ Page({
   },
 
   //上传到云存储，并校验图片安全
-  async uploadToCloudAndCheck(imgPaths){
+  async uploadToCloudAndCheck(imgPaths) {
     //上传到云存储
     const fileID = await uploadFileToCloud(imgPaths)
     //图片安全校验
@@ -91,7 +105,7 @@ Page({
       }
     })
     const rules = res.result
-    
+
     that.setData({
       faceScaned1: rules[0],
       faceScaned2: rules[1],

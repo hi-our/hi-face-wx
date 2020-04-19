@@ -22,38 +22,53 @@ Page({
 
   async mainFunc() {
 
-    const imgPaths = await this.chooseImg()
+    try {
+      const imgPaths = await this.chooseImg()
 
-    wx.showLoading({
-      title: '图片处理中...',
-    })
+      wx.showLoading({
+        title: '图片处理中...',
+      })
 
-    const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPaths)
+      const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPaths)
 
-    if (safeCheckResults.status === 0) {
-      const faceInfos = await this.findFacesInImg(fileID)
-      await this.getImgAveAndFaces(fileID, faceInfos)
-      wx.hideLoading()
-      return
-    }
+      if (safeCheckResults.status === 0) {
+        const faceInfos = await this.findFacesInImg(fileID)
+        await this.getImgAveAndFaces(fileID, faceInfos)
+        wx.hideLoading()
+        return
+      }
 
-    //图片违禁
-    if (safeCheckResults.status === -1000) {
+      //图片违禁
+      if (safeCheckResults.status === -1000) {
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '图片含违禁内容，请更换图片',
+          showCancel: false,
+        })
+        return
+      }
+
       wx.hideLoading()
       wx.showModal({
         title: '提示',
-        content: '图片含违禁内容，请更换图片',
+        content: '图片校验出错，请重试',
         showCancel: false,
       })
-      return
+    } catch (err) {
+      console.log(err)
+      wx.showToast({
+        title: '页面出错',
+        icon: 'none',
+        duration: 2000,
+        success() {
+          setTimeout(
+            wx.reLaunch({
+              url: 'pages/detect-face/detect-face',
+            }), 2000)
+        }
+      })
     }
-
-    wx.hideLoading()
-    wx.showModal({
-      title: '提示',
-      content: '图片校验出错，请重试',
-      showCancel: false,
-    })
   },
 
   //选择图片

@@ -26,14 +26,18 @@ let client = new IaiClient(cred, "ap-beijing", clientProfile);
 let req = new models.DetectFaceRequest();
 
 async function faceImgCheck(params1) {
+
+  if (!params1) {
+    return { 'errCode': 1, 'errMsg': '请传入相关参数' }
+  }
+
   let params = JSON.stringify(params1) //应该是个对象
-  console.log(params)
   req.from_json_string(params);
   return new Promise(function (resolve, reject) {
     client.DetectFace(req, function (errMsg, response) {
       if (errMsg) {
         console.log(errMsg);
-        reject("面部识别云函数出现错误啦")
+        reject({ 'errCode': 1, 'errMsg': '面部识别云函数出现错误啦' })
       }
       console.log(response.to_json_string());
       console.log(response)
@@ -45,12 +49,24 @@ async function faceImgCheck(params1) {
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const { fileID } = event
+
+  const { fileID = '' } = event
+
+  if (!fileID) {
+    return { 'errCode': 1, 'errMsg': '请传入fileID' }
+  }
+
   const fileList = [fileID]
   const result = await cloud.getTempFileURL({
     fileList: fileList,
   })
-  console.log(result.fileList)
-  const params = { 'MaxFaceNum': 10, 'Url': result.fileList[0].tempFileURL }
-  return faceImgCheck(params)
+
+  const tempFileURL = result.fileList[0].tempFileURL
+
+  if (tempFileURL) {
+    const params = { 'MaxFaceNum': 10, 'Url': tempFileURL }
+    return faceImgCheck(params)
+  } else {
+    return { 'errCode': 1, 'errMsg': '请传入fileID' }
+  }
 }

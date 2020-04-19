@@ -8,35 +8,48 @@ tcb.init({
 })
 
 exports.main = async (event, context) => {
-  const { fileID, faceInfos } = event
-  const imgUrl = await getImageUrl(fileID)
-
-  //part1：拿到主色调
-  const res1 = await fetch.get(imgUrl + '?imageAve')
-  const RGB = res1.data.RGB
-
-  //part2：拿到裁剪后的图片
-  let base64Mains = []
-  let fileContents = []
-  for (let i = 0; i < faceInfos.length; i++) {
-    const { X, Y, Width, Height } = faceInfos[i]
-    const res = await fetch.get(imgUrl + "?imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y, { responseType: 'arraybuffer' })
-    console.log(res)
-    const fileContent = Buffer.from(res.data, 'binary')
-    const base64Main = fileContent.toString('base64')
-    base64Mains.push(base64Main)
-    fileContents.push(fileContent)
+  const { fileID = '', faceInfos = [] } = event
+  
+  if (!fileID || !faceInfos) {
+    return { 'errCode': 1, 'errMsg': '请传入参数' }
   }
 
-  return { RGB, base64Mains, fileContents }
+  const imgUrl = await getImageUrl(fileID)
+
+  try {
+    //part1：拿到主色调
+    const res1 = await fetch.get(imgUrl + '?imageAve')
+    const RGB = res1.data.RGB
+
+    //part2：拿到裁剪后的图片
+    let base64Mains = []
+    let fileContents = []
+    for (let i = 0; i < faceInfos.length; i++) {
+      const { X, Y, Width, Height } = faceInfos[i]
+      const res = await fetch.get(imgUrl + "?imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y, { responseType: 'arraybuffer' })
+      console.log(res)
+      const fileContent = Buffer.from(res.data, 'binary')
+      const base64Main = fileContent.toString('base64')
+      base64Mains.push(base64Main)
+      fileContents.push(fileContent)
+    }
+
+    return { RGB, base64Mains, fileContents }
+  } catch (err) {
+    return { 'errCode': 1, 'errMsg': '请传入参数' }
+  }
 }
 
 const getImageUrl = async (fileID) => {
   const { fileList } = await tcb.getTempFileURL({
     fileList: [fileID]
   })
-  console.log(fileList)
-  return fileList[0].tempFileURL
+
+  if(fileList[0].tempFileURL){
+    return fileList[0].tempFileURL
+  } else {
+    return { 'errCode': 1, 'errMsg': '获取链接失败' }
+  }
 }
 
 
