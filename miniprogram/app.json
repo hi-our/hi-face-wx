@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/detect-face/detect-face",
     "pages/smart-crop/smart-crop",
+    "pages/detect-face/detect-face",
     "pages/christmas-hat/christmas-hat",
     "pages/thanks/thanks"
   ],

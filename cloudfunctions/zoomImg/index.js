@@ -1,9 +1,8 @@
 // 云函数入口文件
 const extCi = require('@cloudbase/extension-ci');
 const tcb = require('tcb-admin-node');
-const cloud = require('wx-server-sdk')
 
-let env = process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
+let env = tcb.getCurrentEnv() === 'local' ? 'development-9p1it' : tcb.getCurrentEnv()
 
 tcb.init({
   env
@@ -29,15 +28,15 @@ async function process(imgID) {
       rules: [
         {
           fileid: '/corpTest/1.jpg',
-          rule: 'imageMogr2/thumbnail/150x150'
+          rule: 'imageMogr2/thumbnail/100x100'
         },
         {
           fileid: '/corpTest/2.jpg',
-          rule: 'imageMogr2/thumbnail/220x200'
+          rule: 'imageMogr2/thumbnail/300x200'
         },
         {
           fileid: '/corpTest/3.jpg',
-          rule: 'imageMogr2/thumbnail/200x150'
+          rule: 'imageMogr2/thumbnail/160x90'
         },
       ]
     }
