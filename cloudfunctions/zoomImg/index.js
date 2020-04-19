@@ -19,20 +19,12 @@ const getImageUrl = async (fileID) => {
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const { fileID, params } = event
+  const { fileID = '', rules = '' } = event
   const imgUrl = await getImageUrl(fileID)
+  const prefix = imgUrl.includes('?') ? '|' : '?'
 
-  let base64Mains = []
-  let fileContents = []
+  return rules.map((item) => {
+    return imgUrl + prefix + 'imageMogr2/scrop/' + item
+  })
 
-  for (let i = 0; i < params.length; i++) {
-    const res = await fetch.get(imgUrl + '?imageMogr2/scrop/' + params[i])
-    console.log(res)
-    const fileContent = Buffer.from(res.data, 'binary')
-    const base64Main = fileContent.toString('base64')
-    base64Mains.push(base64Main)
-    fileContents.push(fileContent)
-  }
-
-  return { base64Mains, fileContents }
 }
