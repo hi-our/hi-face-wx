@@ -3,10 +3,10 @@ import { uploadFileToCloud } from '../../utils/upload'
 
 Page({
   data: {
-    bigPic: '/images/bigPic.jpg',
-    faceScaned1: '/images/1.jpg',
-    faceScaned2: '/images/2.jpg',
-    faceScaned3: '/images/3.jpg',
+    bigPic: '/images/bigPic.png',
+    faceScaned1: '/images/1.png',
+    faceScaned2: '/images/2.png',
+    faceScaned3: '/images/3.png',
   },
 
   onShareAppMessage: function () {
@@ -88,18 +88,15 @@ Page({
       name: 'zoomImg',
       data: {
         fileID: fileID,
-        params: ['100x100', '300x200', '160x90']
+        rules: ['100x100', '300x200', '160x90']
       }
     })
-    const { base64Mains } = res.result
-    console.log(base64Mains)
-    const faceScaned1 = 'data:image/png;base64,' + base64Mains[0]
-    const faceScaned2 = 'data:image/png;base64,' + base64Mains[1]
-    const faceScaned3 = 'data:image/png;base64,' + base64Mains[2]
+    const rules = res.result
+    
     that.setData({
-      faceScaned1,
-      faceScaned2,
-      faceScaned3
+      faceScaned1: rules[0],
+      faceScaned2: rules[1],
+      faceScaned3: rules[2],
     })
   }
 })
