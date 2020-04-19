@@ -4,37 +4,37 @@
   height: 100vh;
 }
 
-.picBox {
+.pic-Box {
   padding-top: 50rpx;
   width: 600rpx;
   margin: 0 auto;
 }
 
-.picBox2 {
+.pic-Box2 {
   width: 600rpx;
   height: auto;
   position: relative;
 }
 
-.bigPic {
+.big-Pic {
   display: block;
   width: 600rpx;
   height: 600rpx;
 }
 
-.scanPic {
+.scan-Pic {
   white-space: nowrap;
   margin-top: 50rpx;
 }
 
-.litPic {
+.lit-Pic {
   margin-right: 12rpx;
   width: 210rpx;
   height: 210rpx;
 }
 
 
-.uploadPic {
+.upload-Pic {
   position: fixed;
   left: 0;
   right: 0;

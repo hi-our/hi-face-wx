@@ -1,18 +1,18 @@
 <!--miniprogram/pages/smartCrop/smartCrop.wxml-->
 <!--miniprogram/pages/face-love/face-love.wxml-->
 <view class="box">
-	<view class="textBox">
+	<view class="text-Box">
 		<text class="description1">智能裁剪</text>
 		<text class="description">--------</text>
 		<text class="description">上传带有人像的照片，智能裁剪可以防止人像被切割，从而获得更好的缩略图体验</text>
 	</view>
-	<view class="picBox">
-		<image class="bigPic" src="{{bigPic}}" mode="widthFix"></image>
+	<view class="pic-Box">
+		<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
 	</view>
 	<button class="upload" bindtap="mainFunc">上传</button>
-	<view class="scanPic">
-		<image class="faceScaned1" src="{{faceScaned1}}" mode="aspectFit"></image>
-		<image class="faceScaned2" src="{{faceScaned2}}" mode="aspectFit"></image>
-		<image class="faceScaned3" src="{{faceScaned3}}" mode="aspectFit"></image>
+	<view class="scan-Pic">
+		<image class="face-Scaned1" src="{{faceScaned1}}" mode="aspectFit"></image>
+		<image class="face-Scaned2" src="{{faceScaned2}}" mode="aspectFit"></image>
+		<image class="face-Scaned3" src="{{faceScaned3}}" mode="aspectFit"></image>
 	</view>
 </view>

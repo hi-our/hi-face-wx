@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
     const { X, Y, Width, Height } = faceInfos[i]
     const res = await fetch.get(imgUrl + "?imageMogr2/cut/" + Width + "x" + Height + "x" + X + "x" + Y, { responseType: 'arraybuffer' })
     console.log(res)
-    const fileContent = new Buffer(res.data, 'binary')
+    const fileContent = Buffer.from(res.data, 'binary')
     const base64Main = fileContent.toString('base64')
     base64Mains.push(base64Main)
     fileContents.push(fileContent)

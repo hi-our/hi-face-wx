@@ -16,7 +16,7 @@ page {
   align-items: center;
 }
 
-.textBox{
+.text-Box{
   top: 0px;
   position: relative;
   display: flex;
@@ -44,7 +44,7 @@ page {
   text-align: center;
 }
 
-.picBox {
+.pic-Box {
   padding-top: 50rpx;
   width: 600rpx;
   margin: 0 auto;
@@ -52,7 +52,7 @@ page {
   position: relative;
 }
 
-.bigPic {
+.big-Pic {
   width: 600rpx;
   height: 600rpx;
   position: relative;
@@ -68,7 +68,7 @@ page {
   font-weight: normal;
 }
 
-.scanPic {
+.scan-Pic {
   width: 600rpx;
   white-space: nowrap;
   margin-top: 50rpx;
@@ -79,19 +79,19 @@ page {
   align-items: center;
 }
 
-.faceScaned1 {
+.face-Scaned1 {
   margin-right: 12rpx;
   width: 150rpx;
   height: 150rpx;
 }
 
-.faceScaned2 {
+.face-Scaned2 {
   margin-right: 12rpx;
   width: 220rpx;
   height: 200rpx;
 }
 
-.faceScaned3 {
+.face-Scaned3 {
   margin-right: 12rpx;
   width: 200rpx;
   height: 150rpx;
