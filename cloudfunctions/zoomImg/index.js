@@ -21,21 +21,22 @@ exports.main = async (event) => {
 }
 
 async function process(imgID) {
+  let newTime = new Date().getTime()
   // Todo rules 的宽高需要从 event 里面传入
   try {
     // TODO 重复的代码，可以用变量进行定义
     const opts = {
       rules: [
         {
-          fileid: '/corpTest/1.jpg',
+          fileid: '/corpTest/'+ newTime +'1.jpg',
           rule: 'imageMogr2/thumbnail/100x100'
         },
         {
-          fileid: '/corpTest/2.jpg',
+          fileid: '/corpTest/'+ newTime +'2.jpg',
           rule: 'imageMogr2/thumbnail/300x200'
         },
         {
-          fileid: '/corpTest/3.jpg',
+          fileid: '/corpTest/'+ newTime +'3.jpg',
           rule: 'imageMogr2/thumbnail/160x90'
         },
       ]
