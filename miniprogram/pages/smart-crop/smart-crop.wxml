@@ -1,11 +1,10 @@
-<!--miniprogram/pages/smartCrop/smartCrop.wxml-->
-<!--miniprogram/pages/face-love/face-love.wxml-->
 <view class="box">
 	<view class="text-Box">
-		<text class="description1">智能裁剪</text>
+		<text class="description-1">智能裁剪</text>
 		<text class="description">--------</text>
 		<text class="description">上传带有人像的照片，智能裁剪可以防止人像被切割，从而获得更好的缩略图体验</text>
 	</view>
+	
 	<view class="pic-Box">
 		<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
 	</view>

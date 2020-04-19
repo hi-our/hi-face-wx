@@ -71,12 +71,12 @@ Page({
   },
 
   //上传到云存储，并校验图片安全
-  async uploadToCloudAndCheck(imgPaths) {
+  async uploadToCloudAndCheck(imgPaths){
     //上传到云存储
     const fileID = await uploadFileToCloud(imgPaths)
     //图片安全校验
     const checkResults = await imgSecCheck(fileID)
-    const safeCheckResults = checkResults.result
+    const safeCheckResults = checkResults.result;
     return { safeCheckResults, fileID }
   },
 
