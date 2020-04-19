@@ -1,6 +1,6 @@
 // 云函数入口文件
-const extCi = require('@cloudbase/extension-ci');
 const tcb = require('tcb-admin-node');
+const fetch = require('axios')
 
 let env = tcb.getCurrentEnv() === 'local' ? 'development-9p1it' : tcb.getCurrentEnv()
 
@@ -8,53 +8,31 @@ tcb.init({
   env
 })
 
-tcb.registerExtension(extCi)
-
-// 云函数入口函数
-exports.main = async (event) => {
-  const {fileID} = event
-  // imgId需要定义呀
-  let imgID = fileID.replace('cloud://', '')
-  let index = imgID.indexOf('/')
-
-  return process(imgID.substr(index))
+const getImageUrl = async (fileID) => {
+  const { fileList } = await tcb.getTempFileURL({
+    fileList: [fileID]
+  })
+  console.log(fileList)
+  return fileList[0].tempFileURL
 }
 
-async function process(imgID) {
-  let newTime = new Date().getTime()
-  // Todo rules 的宽高需要从 event 里面传入
-  try {
-    // TODO 重复的代码，可以用变量进行定义
-    const opts = {
-      rules: [
-        {
-          fileid: '/corpTest/'+ newTime +'1.jpg',
-          rule: 'imageMogr2/thumbnail/100x100'
-        },
-        {
-          fileid: '/corpTest/'+ newTime +'2.jpg',
-          rule: 'imageMogr2/thumbnail/300x200'
-        },
-        {
-          fileid: '/corpTest/'+ newTime +'3.jpg',
-          rule: 'imageMogr2/thumbnail/160x90'
-        },
-      ]
-    }
 
-    const res = await tcb.invokeExtension('CloudInfinite', {
-      action: 'ImageProcess',
-      cloudPath: imgID,
-      operations: opts
-    })
+// 云函数入口函数
+exports.main = async (event, context) => {
+  const { fileID, params } = event
+  const imgUrl = await getImageUrl(fileID)
 
+  let base64Mains = []
+  let fileContents = []
 
-    console.log(JSON.stringify(res.data, null, 4))
-
-
-    return res.data
-  } catch (err) {
-
-    return err
+  for (let i = 0; i < params.length; i++) {
+    const res = await fetch.get(imgUrl + '?imageMogr2/scrop/' + params[i])
+    console.log(res)
+    const fileContent = Buffer.from(res.data, 'binary')
+    const base64Main = fileContent.toString('base64')
+    base64Mains.push(base64Main)
+    fileContents.push(fileContent)
   }
+
+  return { base64Mains, fileContents }
 }

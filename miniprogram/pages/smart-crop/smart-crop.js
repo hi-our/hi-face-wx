@@ -34,7 +34,7 @@ Page({
       await this.zoomImg(fileID)
       return
     }
-    
+
     //图片违禁
     if (safeCheckResults.status === -1000) {
       wx.showModal({
@@ -87,20 +87,19 @@ Page({
     const res = await wx.cloud.callFunction({
       name: 'zoomImg',
       data: {
-        fileID: fileID
+        fileID: fileID,
+        params: ['100x100', '300x200', '160x90']
       }
     })
-    const zoomImgs = res.result.UploadResult.ProcessResults.Object
-    console.log(zoomImgs)
-
-    // TODO，这里再改改
-    let cloudPrefix = 'cloud://development-9p1it.6465-development-9p1it-1301318001/'
-
-
+    const { base64Mains } = res.result
+    console.log(base64Mains)
+    const faceScaned1 = 'data:image/png;base64,' + base64Mains[0]
+    const faceScaned2 = 'data:image/png;base64,' + base64Mains[1]
+    const faceScaned3 = 'data:image/png;base64,' + base64Mains[2]
     that.setData({
-      faceScaned1: cloudPrefix + zoomImgs[0].Key,
-      faceScaned2: cloudPrefix + zoomImgs[1].Key,
-      faceScaned3: cloudPrefix + zoomImgs[2].Key,
+      faceScaned1,
+      faceScaned2,
+      faceScaned3
     })
   }
 })

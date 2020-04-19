@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@cloudbase/extension-ci": "^0.1.0",
+    "axios": "^0.19.2",
     "tcb-admin-node": "^1.22.1"
   }
 }
