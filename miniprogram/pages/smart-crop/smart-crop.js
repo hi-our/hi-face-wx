@@ -1,4 +1,4 @@
-import { imgSecCheck, uploadFileToCloud } from '../../utils/myFunc.js'
+import { imgSecCheck, uploadFileToCloud } from '../../utils/common-func.js'
 
 Page({
   data: {

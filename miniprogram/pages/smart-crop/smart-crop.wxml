@@ -9,10 +9,13 @@
 	<view class="pic-Box">
 		<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
 	</view>
-	<button class="upload" bindtap="mainFunc">上传</button>
 	<view class="scan-Pic">
 		<image class="face-Scaned1" src="{{faceScaned1}}" mode="aspectFit"></image>
 		<image class="face-Scaned2" src="{{faceScaned2}}" mode="aspectFit"></image>
 		<image class="face-Scaned3" src="{{faceScaned3}}" mode="aspectFit"></image>
+	</view>
+	<view class="upload" bindtap="mainFunc">
+		<image class="uploa-img" src="/images/upload-img.png"></image>
+		<text class="upload-font">上传</text>
 	</view>
 </view>

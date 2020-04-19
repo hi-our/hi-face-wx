@@ -1,5 +1,5 @@
 // miniprogram/pages/face-love/face-love.js
-import { imgSecCheck, faceDetect, uploadFileToCloud } from '../../utils/myFunc.js'
+import { imgSecCheck, faceDetect, uploadFileToCloud } from '../../utils/common-func.js'
 
 Page({
   data: {
