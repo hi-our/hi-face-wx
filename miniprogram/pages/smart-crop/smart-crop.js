@@ -1,5 +1,4 @@
-import { imgSecCheck } from '../myFunc.js'
-import { uploadFileToCloud } from '../../utils/upload'
+import { imgSecCheck, uploadFileToCloud } from '../../utils/myFunc.js'
 
 Page({
   data: {
@@ -42,7 +41,7 @@ Page({
         content: '图片含违禁内容，请更换图片',
         showCancel: false,
       })
-      return 1
+      return
     }
 
     //图片安全校验出错
