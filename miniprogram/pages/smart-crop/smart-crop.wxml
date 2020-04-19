@@ -10,9 +10,9 @@
 		<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
 	</view>
 	<view class="scan-Pic">
-		<image class="face-Scaned1" src="{{faceScaned1}}" mode="aspectFit"></image>
-		<image class="face-Scaned2" src="{{faceScaned2}}" mode="aspectFit"></image>
-		<image class="face-Scaned3" src="{{faceScaned3}}" mode="aspectFit"></image>
+		<image class="face-Scaned-1" src="{{faceScaned1}}" mode="aspectFit"></image>
+		<image class="face-Scaned-2" src="{{faceScaned2}}" mode="aspectFit"></image>
+		<image class="face-Scaned-3" src="{{faceScaned3}}" mode="aspectFit"></image>
 	</view>
 	<view class="upload" bindtap="mainFunc">
 		<image class="uploa-img" src="/images/upload-img.png"></image>
