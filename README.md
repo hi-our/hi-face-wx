@@ -1,4 +1,4 @@
-口罩小程序请前往 https://github.com/hi-our/hi-face-wx
+口罩小程序（原生开发）请前往 https://github.com/hi-our/hi-face-wx
 
 <!-- TODO 文档还需要阿欢来补充 -->
 
