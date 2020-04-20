@@ -85,7 +85,7 @@ page {
 
 .img-tag {
   font-size: 14px;
-  width: 42px;
+  width: 60px;
   height: 28px;
   border: 1px solid rgba(151, 151, 151, 1);
   display: flex;
