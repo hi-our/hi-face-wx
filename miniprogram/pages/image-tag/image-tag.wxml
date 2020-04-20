@@ -1,15 +1,13 @@
 <view class="box">
-	<view class="text-Box">
-		<text class="description">上传图片，会自动显示图片的主要特征标签</text>
-	</view>
-	<view class="pic-Box">
-		<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
-	</view>
-	<view class="img-tag-box" >
-	  <view class="img-tag" wx:for="{{imgTags}}" wx:key="index">{{item.name}}</view>
-	</view>
-	<view class="upload" bindtap="mainFunc">
-		<image class="uploa-img" src="/images/upload-img.png"></image>
-		<text class="upload-font">上传</text>
-	</view>
+  <view class="text-box">上传图片，会自动显示图片的主要特征标签</view>
+
+  <image class="big-pic" src="{{bigPic}}" mode="widthFix"></image>
+
+  <view class="img-tag-box" >
+    <view class="img-tag" wx:for="{{imgTags}}" wx:key="index">{{item.name}}</view>
+  </view>
+
+  <view class="upload" bindtap="mainFunc">
+    <image class="uploa-img" src="/images/upload-img.png"></image>上传
+  </view>
 </view>

@@ -70,6 +70,13 @@
 					"id": -1,
 					"name": "pages/smart-crop/smart-crop",
 					"pathName": "pages/smart-crop/smart-crop",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/image-tag/image-tag",
+					"pathName": "pages/image-tag/image-tag",
 					"scene": null
 				}
 			]
