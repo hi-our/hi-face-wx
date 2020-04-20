@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/image-tag/image-tag",
     "pages/smart-crop/smart-crop",
     "pages/detect-face/detect-face",
     "pages/christmas-hat/christmas-hat",
