@@ -1,9 +1,11 @@
 <!--miniprogram/pages/face-love/face-love.wxml-->
-<view class="box" style="background: -webkit-linear-gradient(top, {{background}}, rgb(51, 42, 63));">
+<view class="box" style="background:linear-gradient(180deg,{{background}} 0%,rgba(28,37,50,0.7) 77%,rgba(28,37,50,1) 100%)">
+	<view class="navigationBar">人脸识别</view>
 	<view class="pic-Box">
 		<view class="pic-Box2">
-			<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
-			<view class="face-item" wx:if="{{shapes.length > 0}}" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;"  wx:for="{{shapes}}" wx:key="index">
+			<image class="default-big-Pic" src="/images/defaultImg.png" mode="aspectFit" wx:if="{{!bigPic}}"></image>
+			<image class="big-Pic" src="{{bigPic}}" mode="widthFix" wx:if="{{bigPic}}"></image>
+			<view class="face-item" wx:if="{{shapes.length > 0}}" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;" wx:for="{{shapes}}" wx:key="index">
 				<View class="face-line left-top"></View>
 				<View class="face-line right-top"></View>
 				<View class="face-line left-bottom"></View>
@@ -12,8 +14,11 @@
 		</view>
 		<scroll-view class="scan-Pic" scroll-x>
 			<image class="lit-Pic" src="{{litPic}}" mode="aspectFit"></image>
-			<image  wx:for="{{facePics}}" wx:key="index" class="lit-Pic" src="{{item}}" mode="aspectFit"></image>
+			<image wx:for="{{facePics}}" wx:key="index" class="lit-Pic" src="{{item}}" mode="aspectFit"></image>
 		</scroll-view>
 	</view>
-	<view class="upload-Pic" bindtap="mainFunc">上传</view>
+	<view class="upload" bindtap="mainFunc">
+		<image class="uploa-img" src="/images/upload-img.png"></image>
+		<text class="upload-font">上传</text>
+	</view>
 </view>

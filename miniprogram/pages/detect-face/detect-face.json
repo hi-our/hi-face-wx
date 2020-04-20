@@ -1,6 +1,4 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "人像魅力",
-  "navigationBarBackgroundColor": "#8B3B70",
-  "navigationBarTextStyle": "white"
+  "navigationStyle": "custom"
 }

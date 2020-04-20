@@ -5,19 +5,10 @@ Page({
   data: {
     shapeIndex: false,
     shapes: [],
-    bigPic: '/images/bigPic.jpg',
-    litPic: '/images/bigPic.jpg',
-    facePics: [1, 2, 3].map(item => `/images/${item}.jpg`),
-    background: 'rgb(139, 59, 112)',
-  },
-  onShareAppMessage: function () {
-    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
-
-    return {
-      title: '人像魅力',
-      imageUrl: DEFAULT_SHARE_COVER,
-      path: '/pages/detect-face/detect-face'
-    }
+    bigPic: '',
+    litPic: '',
+    facePics: [],
+    background: 'rgb(142, 147, 154)',
   },
 
   async mainFunc() {
@@ -145,10 +136,10 @@ Page({
     const background = RGB.replace('0x', '#')
 
     //更改视图层的主色调
-    wx.setNavigationBarColor({
-      backgroundColor: background,
-      frontColor: '#ffffff',
-    })
+    // wx.setNavigationBarColor({
+    //   backgroundColor: background,
+    //   frontColor: '#ffffff',
+    // })
 
     //将base64Main展示在视图层
     let facePics = base64Mains.map(item => `data:image/png;base64,${item}`)
@@ -157,5 +148,15 @@ Page({
       background,
       facePics
     })
+  },
+
+  onShareAppMessage: function () {
+    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
+
+    return {
+      title: '人像魅力',
+      imageUrl: DEFAULT_SHARE_COVER,
+      path: '/pages/detect-face/detect-face'
+    }
   },
 })
