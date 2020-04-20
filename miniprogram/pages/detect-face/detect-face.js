@@ -9,6 +9,7 @@ Page({
     litPic: '',
     facePics: [],
     background: 'rgb(142, 147, 154)',
+    textTips: '上传带人脸的正面照'
   },
 
   async mainFunc() {
@@ -74,6 +75,7 @@ Page({
     this.setData({
       bigPic,
       litPic: bigPic,
+      textTips: '点击人脸框，可以显示人脸魅力值'
     })
 
     return bigPic

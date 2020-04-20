@@ -4,7 +4,7 @@
   height: 100vh;
 }
 
-.navigationBar{
+.navigationBar {
   height: 88rpx;
   width: 600rpx;
   color: white;
@@ -24,10 +24,10 @@
   width: 600rpx;
   height: auto;
   position: relative;
-  border:1px dashed rgba(239,239,239,1);
+  border: 1px dashed rgba(239, 239, 239, 1);
 }
 
-.default-big-Pic{
+.default-big-Pic {
   display: block;
   width: 300rpx;
   height: 300rpx;
@@ -43,15 +43,24 @@
   z-index: 10;
 }
 
+.text-tips {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  text-align: center;
+}
+
 .scan-Pic {
   white-space: nowrap;
-  margin-top: 50rpx;
 }
 
 .lit-Pic {
   margin-right: 12rpx;
   width: 210rpx;
   height: 210rpx;
+  background-color: white;
 }
 
 .upload {

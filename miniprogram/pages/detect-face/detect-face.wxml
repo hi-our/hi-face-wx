@@ -12,7 +12,8 @@
 				<View class="face-line right-bottom"></View>
 			</view>
 		</view>
-		<scroll-view class="scan-Pic" scroll-x>
+		<view class="text-tips">{{textTips}}</view>
+		<scroll-view class="scan-Pic" scroll-x wx:if="{{facePics.length>0}}">
 			<image class="lit-Pic" src="{{litPic}}" mode="aspectFit"></image>
 			<image wx:for="{{facePics}}" wx:key="index" class="lit-Pic" src="{{item}}" mode="aspectFit"></image>
 		</scroll-view>
