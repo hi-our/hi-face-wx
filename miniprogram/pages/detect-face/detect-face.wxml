@@ -1,7 +1,7 @@
 <!--miniprogram/pages/face-love/face-love.wxml-->
 <view class="box" style="background:linear-gradient(180deg,{{background}} 0%,rgba(28,37,50,0.7) 77%,rgba(28,37,50,1) 100%)">
 	<view class="navigationBar" style="padding-top:{{navigationBarPaddingTop}}px">人脸识别</view>
-	<view class="pic-Box" style="border: 1px dashed rgba(239, 239, 239, 1)">
+	<view class="pic-Box" style="{{picBoxBorder}}">
 		<image class="default-big-Pic" src="/images/defaultImg.png" mode="aspectFit" wx:if="{{!bigPic}}"></image>
 		<image class="big-Pic" src="{{bigPic}}" mode="widthFix" wx:if="{{bigPic}}"></image>
 		<view class="face-item" wx:if="{{shapes.length > 0}}" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;" wx:for="{{shapes}}" wx:key="index">
@@ -17,7 +17,6 @@
 		<image wx:for="{{facePics}}" wx:key="index" class="lit-Pic" src="{{item}}" mode="aspectFit"></image>
 	</scroll-view>
 	<view class="upload" bindtap="mainFunc">
-		<image class="uploa-img" src="/images/upload-img.png"></image>
-		<text class="upload-font">上传</text>
+		<image class="uploa-img" src="/images/upload-img.png"></image>上传
 	</view>
 </view>

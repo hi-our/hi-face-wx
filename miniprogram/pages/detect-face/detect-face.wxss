@@ -14,31 +14,28 @@
 .pic-Box {
   width: 600rpx;
   margin: 50rpx auto;
-  position:relative
+  position:relative;
+  border: 1px dashed rgba(239, 239, 239, 1)
 }
 
 .default-big-Pic {
   display: block;
   width: 300rpx;
   height: 300rpx;
-  margin: 0 auto;
-  margin-top: 150rpx;
-  margin-bottom: 150rpx;
+  margin: 150rpx auto;
 }
 
 .big-Pic {
   display: block;
   width: 600rpx;
   height: 600rpx;
-  z-index: 10;
 }
 
 .text-tips {
   color: #ffffff;
   font-size: 14px;
   font-weight: 400;
-  margin-top: 50rpx;
-  margin-bottom: 50rpx;
+  margin-top: 50rpx auto;
   text-align: center;
 }
 
@@ -73,10 +70,6 @@
   width: 54rpx;
   height: 42rpx;
   margin-right: 10rpx;
-}
-
-.upload-font {
-  color: white;
 }
 
 .face-item {

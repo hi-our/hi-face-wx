@@ -82,7 +82,8 @@ Page({
     this.setData({
       bigPic,
       litPic: bigPic,
-      textTips: '点击人脸框，可以显示人脸魅力值'
+      textTips: '点击人脸框，可以显示人脸魅力值',
+      picBoxBorder: 'border: none'
     })
 
     return bigPic
