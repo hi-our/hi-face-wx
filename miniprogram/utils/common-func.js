@@ -35,15 +35,13 @@ async function imgSecCheck(fileID) {
 
 //识别人脸
 async function faceDetect(fileID) {
-  // console.log(fileID)
   const results = await wx.cloud.callFunction({
     name: 'faceDetect',
     data: {
       fileID: fileID
     }
   })
-  console.log(results)
-  // console.log(results.result.FaceInfos)
+  
   return results.result
 };
 
@@ -56,7 +54,7 @@ async function cropImg(fileID, faceInfos) {
       faceInfos: faceInfos,
     }
   })
-  // console.log(results)
+  
   return results
 };
 

@@ -4,11 +4,19 @@
 	<view class="pic-box" style="{{picBoxBorder}}">
 		<image class="default-big-pic" src="/images/defaultImg.png" mode="aspectFit" wx:if="{{!bigPic}}"></image>
 		<image class="big-pic" src="{{bigPic}}" mode="widthFix" wx:if="{{bigPic}}"></image>
-		<view class="face-item" wx:if="{{shapes.length > 0}}" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;" wx:for="{{shapes}}" wx:key="index">
-			<View class="face-line left-top"></View>
-			<View class="face-line right-top"></View>
-			<View class="face-line left-bottom"></View>
-			<View class="face-line right-bottom"></View>
+		<view class="face-item" wx:if="{{shapes.length > 0}}" wx:for="{{shapes}}" wx:key="index" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;">
+			<View class='{{key==index?"face-line left-top-2":"face-line left-top"}}'></View>
+			<View class='{{key==index?"face-line right-top-2":"face-line right-top"}}'></View>
+			<View class='{{key==index?"face-line left-bottom-2":"face-line left-bottom"}}'></View>
+			<View class='{{key==index?"face-line right-bottom-2":"face-line right-bottom"}}'></View>
+			<view class="face-attributes-info" wx:if="{{key==index}}" style="margin: 0 {{item.width}}rpx;">
+				<text class="face-attributes-info-text">年龄：{{item.FaceAttributesInfo.Age}}</text>
+				<text class="face-attributes-info-text">表情：{{item.FaceAttributesInfo.Expression}}</text>
+				<text class="face-attributes-info-text">魅力：{{item.FaceAttributesInfo.Beauty}}</text>
+				<text class="face-attributes-info-text">眼镜：{{item.FaceAttributesInfo.Glass}}</text>
+				<text class="face-attributes-info-text">帽子：{{item.FaceAttributesInfo.Hat}}</text>
+				<text class="face-attributes-info-text">口罩：{{item.FaceAttributesInfo.Mask}}</text>
+			</view>
 		</view>
 	</view>
 	<view class="text-tips">{{textTips}}</view>

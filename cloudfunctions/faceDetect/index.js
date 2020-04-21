@@ -64,7 +64,7 @@ exports.main = async (event, context) => {
   const tempFileURL = result.fileList[0].tempFileURL
 
   if (tempFileURL) {
-    const params = { 'MaxFaceNum': 10, 'Url': tempFileURL }
+    const params = { 'MaxFaceNum': 10, 'Url': tempFileURL, 'NeedFaceAttributes': 1 }
     return faceImgCheck(params)
   } else {
     return { 'errCode': 1, 'errMsg': '请传入fileID' }

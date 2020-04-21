@@ -11,7 +11,8 @@ Page({
     background: 'rgb(142, 147, 154)',
     textTips: '上传带人脸的正面照',
     litPicBorder: 'border: 1px solid #ED4BA6',
-    scanPicBorder: 'border: 1px solid #4EC9B0'
+    scanPicBorder: 'border: 1px solid #4EC9B0',
+    key: -2,
   },
 
   onLoad() {
@@ -77,10 +78,9 @@ Page({
     console.log(e)
     const { index } = e.currentTarget.dataset
     console.log(index)
-    const temp_str = "facePics[" + index + "]"
     this.setData({
       litPicBorder: 'border: 1px solid #4EC9B0',
-      key: index
+      key: index,
     })
   },
 
@@ -126,13 +126,39 @@ Page({
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
     const turnRatio = ImageWidth / 600
     let shapes = FaceInfos.map(face => {
-      const { X, Y, Width, Height } = face
+      const { X, Y, Width, Height, FaceAttributesInfo } = face
+      if(FaceAttributesInfo.Expression === 0){
+        FaceAttributesInfo.Expression = '正常'
+      } else if(FaceAttributesInfo.Expression < 50){
+        FaceAttributesInfo.Expression = '微笑'
+      } else {
+        FaceAttributesInfo.Expression = '大小'
+      }
+
+      if(FaceAttributesInfo.Glass){
+        FaceAttributesInfo.Glass = '有'
+      } else {
+        FaceAttributesInfo.Glass = '无'
+      }
+
+      if(FaceAttributesInfo.Hat){
+        FaceAttributesInfo.Hat = '有'
+      } else {
+        FaceAttributesInfo.Hat = '无'
+      }
+
+      if(FaceAttributesInfo.Mask){
+        FaceAttributesInfo.Mask = '有'
+      } else {
+        FaceAttributesInfo.Mask = '无'
+      }
 
       return {
         x: X / turnRatio,
         y: Y / turnRatio,
         width: Width / turnRatio,
         height: Height / turnRatio,
+        FaceAttributesInfo: FaceAttributesInfo
       }
     })
 
