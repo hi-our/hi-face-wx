@@ -34,11 +34,11 @@
 .face-attributes-info {
   position: absolute;
   background-color: #61E6BD;
-  width: 200rpx;
+  width: 230rpx;
   padding: 10rpx;
 }
 
-.face-attributes-info-text {
+.face-attributes-info .text {
   display: block;
 }
 

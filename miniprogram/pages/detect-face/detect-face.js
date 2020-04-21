@@ -1,5 +1,5 @@
 // miniprogram/pages/face-love/face-love.js
-import { imgSecCheck, faceDetect, uploadFileToCloud } from '../../utils/common-func.js'
+import { imgSecCheck, faceDetect, uploadFileToCloud, GENDER_STATUS, EXPRESS_MOOD, HAVE_STATUS } from '../../utils/common-func.js'
 
 Page({
   data: {
@@ -73,26 +73,36 @@ Page({
       wx.showToast({
         title: '页面出错',
         icon: 'none',
-        duration: 2000,
-        success() {
-          // 报错就好了，为啥还要重新渲染页面呢？
-          setTimeout(
-            wx.reLaunch({
-              url: 'pages/detect-face/detect-face',
-            }), 2000)
-        }
+        duration: 2000
       })
     }
   },
 
   //显示人脸魅力文字
   showMeili(e) {
-
+    const key = this.data.key
     const { index } = e.currentTarget.dataset
 
+    if (key == index) {
+      this.setData({
+        key: -1
+      })
+      return
+    }
+
+    if (key >= -1) {
+      this.setData({
+        litPicBorder: 'border: 1px solid #4EC9B0',
+        key: index,
+      })
+      return
+    }
+  },
+
+  showPic(){
     this.setData({
-      litPicBorder: 'border: 1px solid #4EC9B0',
-      key: index,
+      key: -1,
+      litPicBorder:'border: 1px solid #ED4BA6'
     })
   },
 
@@ -145,58 +155,23 @@ Page({
       const { X, Y, Width, Height, FaceAttributesInfo = {} } = face
 
       // TODO 这里请重新解构,然后注意前端变量是要小驼峰式（首字母小写），而不是大驼峰式
-      // const { Expression, Glass, Hat, Mask } = FaceAttributesInfo
-
-      /* 
-      return {
-        shapeIndex,
-        left: X,
-        top: Y,
-        width: Width,
-        height: Height,
-        age: Age,
-        genderStr: GENDER_STATUS[Gender],
-        expressionStr: EXPRESS_MOOD[parseInt(Expression / 10, 10)],
-        beauty: Beauty,
-        glassStr: HAVE_STATUS[Number(Glass)],
-        hatStr: HAVE_STATUS[Number(Hat)],
-        maskStr: HAVE_STATUS[Number(Mask)],
-      }
-      */
-
-
-      if (FaceAttributesInfo.Expression === 0) {
-        FaceAttributesInfo.Expression = '正常'
-      } else if (FaceAttributesInfo.Expression < 50) {
-        FaceAttributesInfo.Expression = '微笑'
-      } else {
-        FaceAttributesInfo.Expression = '大小'
-      }
-
-      if (FaceAttributesInfo.Glass) {
-        FaceAttributesInfo.Glass = '有'
-      } else {
-        FaceAttributesInfo.Glass = '无'
-      }
-
-      if (FaceAttributesInfo.Hat) {
-        FaceAttributesInfo.Hat = '有'
-      } else {
-        FaceAttributesInfo.Hat = '无'
-      }
-
-      if (FaceAttributesInfo.Mask) {
-        FaceAttributesInfo.Mask = '有'
-      } else {
-        FaceAttributesInfo.Mask = '无'
-      }
+      const { Expression, Glass, Hat, Mask, Age, Beauty } = FaceAttributesInfo
+      const expression = EXPRESS_MOOD[parseInt(Expression / 10, 10)]
+      const glass = HAVE_STATUS[Number(Glass)]
+      const hat = HAVE_STATUS[Number(Hat)]
+      const mask = HAVE_STATUS[Number(Mask)]
 
       return {
         x: X / turnRatio,
         y: Y / turnRatio,
         width: Width / turnRatio,
         height: Height / turnRatio,
-        FaceAttributesInfo: FaceAttributesInfo
+        expression: expression,
+        glass: glass,
+        hat: hat,
+        mask: mask,
+        age: Age,
+        beauty: Beauty
       }
     })
 

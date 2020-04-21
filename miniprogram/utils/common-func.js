@@ -41,7 +41,7 @@ async function faceDetect(fileID) {
       fileID: fileID
     }
   })
-  
+
   return results.result
 };
 
@@ -54,14 +54,22 @@ async function cropImg(fileID, faceInfos) {
       faceInfos: faceInfos,
     }
   })
-  
+
   return results
 };
 
+const GENDER_STATUS = ['未知', '男', '女']
+
+const EXPRESS_MOOD = ['黯然伤神', '半嗔半喜', '似笑非笑', '笑逐颜开', '莞尔一笑', '喜上眉梢', '眉开眼笑', '笑尽妖娆', '心花怒放', '一笑倾城']
+
+const HAVE_STATUS = ['无', '有']
 
 module.exports = {
   uploadFileToCloud: uploadFileToCloud,
   imgSecCheck: imgSecCheck,
   faceDetect: faceDetect,
-  cropImg: cropImg
+  cropImg: cropImg,
+  GENDER_STATUS: GENDER_STATUS,
+  EXPRESS_MOOD: EXPRESS_MOOD,
+  HAVE_STATUS: HAVE_STATUS,
 }

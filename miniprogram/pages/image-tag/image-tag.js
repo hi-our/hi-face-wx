@@ -104,7 +104,7 @@ Page({
     }
 
     wx.showToast({
-      title: '图片校验出错，请重试', // TODO 这里为啥是校验图片出错？
+      title: '出现错误，请重试',
       icon: 'none',
       duration: 2000
     })

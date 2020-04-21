@@ -4,25 +4,25 @@
 	<view class="pic-box" style="{{picBoxBorder}}">
 		<image class="default-big-pic" src="/images/defaultImg.png" mode="aspectFit" wx:if="{{!bigPic}}"></image>
 		<image class="big-pic" src="{{bigPic}}" mode="widthFix" wx:if="{{bigPic}}"></image>
-		<view class="face-item {{key==index ? 'face-item-active' : ''}}" wx:if="{{shapes.length > 0}}" wx:for="{{shapes}}" wx:key="index" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;">
+		<view class="face-item {{key==index ? 'face-item-active' : ''}}" wx:if="{{shapes.length > 0}}" wx:for="{{shapes}}" wx:key="index" style="left:{{item.x}}rpx; top:{{item.y}}rpx; width: {{item.width}}rpx; height: {{item.height}}rpx;" bindtap="showMeili" data-index="{{index}}">
 			<View class='face-line left-top'></View>
 			<View class='face-line right-top'></View>
 			<View class='face-line left-bottom'></View>
 			<View class='face-line right-bottom'></View>
 			<!-- 这里要改掉 -->
 			<view class="face-attributes-info" wx:if="{{key==index}}" style="margin: 0 {{item.width+10}}rpx;">
-				<text class="face-attributes-info-text">年龄：{{item.FaceAttributesInfo.Age}}</text>
-				<text class="face-attributes-info-text">表情：{{item.FaceAttributesInfo.Expression}}</text>
-				<text class="face-attributes-info-text">魅力：{{item.FaceAttributesInfo.Beauty}}</text>
-				<text class="face-attributes-info-text">眼镜：{{item.FaceAttributesInfo.Glass}}</text>
-				<text class="face-attributes-info-text">帽子：{{item.FaceAttributesInfo.Hat}}</text>
-				<text class="face-attributes-info-text">口罩：{{item.FaceAttributesInfo.Mask}}</text>
+				<text class="text">年龄：{{item.age}}</text>
+				<text class="text">表情：{{item.expression}}</text>
+				<text class="text">魅力：{{item.beauty}}</text>
+				<text class="text">眼镜：{{item.glass}}</text>
+				<text class="text">帽子：{{item.hat}}</text>
+				<text class="text">口罩：{{item.mask}}</text>
 			</view>
 		</view>
 	</view>
 	<view class="text-tips">{{textTips}}</view>
 	<scroll-view class="scan-pic" scroll-x wx:if="{{facePics.length>0}}">
-		<image class="lit-pic" src="{{litPic}}" mode="aspectFit" style="{{litPicBorder}}"></image>
+		<image class="lit-pic" src="{{litPic}}" mode="aspectFit" style="{{litPicBorder}}" bindtap="showPic"></image>
 		<image wx:for="{{facePics}}" wx:key="index" class="lit-pic" src="{{item}}" mode="aspectFit" style='{{key==index?"border:1px solid #ED4BA6;":"border:1px solid #4EC9B0"}}' bindtap="showMeili" data-index="{{index}}"></image>
 	</scroll-view>
 	<view class="upload" bindtap="mainFunc">
