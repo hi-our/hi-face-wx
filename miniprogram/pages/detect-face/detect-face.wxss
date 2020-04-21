@@ -2,7 +2,7 @@
   height: 100vh;
 }
 
-.navigationBar {
+.navigation-bar {
   width: 600rpx;
   color: white;
   font-size: 24px;
@@ -11,21 +11,21 @@
   line-height: 44px;
 }
 
-.pic-Box {
+.pic-box {
   width: 600rpx;
   margin: 50rpx auto;
   position:relative;
   border: 1px dashed rgba(239, 239, 239, 1)
 }
 
-.default-big-Pic {
+.default-big-pic {
   display: block;
   width: 300rpx;
   height: 300rpx;
   margin: 150rpx auto;
 }
 
-.big-Pic {
+.big-pic {
   display: block;
   width: 600rpx;
   height: 600rpx;
@@ -39,13 +39,13 @@
   text-align: center;
 }
 
-.scan-Pic {
+.scan-pic {
   width: 600rpx;
   white-space: nowrap;
   margin: 0 auto;
 }
 
-.lit-Pic {
+.lit-pic {
   margin-right: 12rpx;
   width: 210rpx;
   height: 210rpx;
