@@ -53,23 +53,21 @@
 }
 
 .upload {
+  bottom: 0px;
+  position: fixed;
   background: rgb(54, 118, 235);
   color: white;
   width: 100%;
-  height: 188rpx;
-  bottom: 0px;
-  position: fixed;
+  line-height: 120rpx;
   font-size: 14px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
-.uploa-img {
+.upload-img {
   width: 54rpx;
   height: 42rpx;
   margin-right: 10rpx;
+  vertical-align: middle;
 }
 
 .face-item {

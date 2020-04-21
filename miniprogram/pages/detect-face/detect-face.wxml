@@ -17,6 +17,6 @@
 		<image wx:for="{{facePics}}" wx:key="index" class="lit-Pic" src="{{item}}" mode="aspectFit"></image>
 	</scroll-view>
 	<view class="upload" bindtap="mainFunc">
-		<image class="uploa-img" src="/images/upload-img.png"></image>上传
+		<image class="upload-img" src="/images/upload-img.png"></image>上传
 	</view>
 </view>
