@@ -86,6 +86,10 @@ Page({
 
   //选择图片
   async chooseImg() {
+    this.setData({
+      shapes: [],
+      facePics: []
+    })
     const temImg = await wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
@@ -127,27 +131,27 @@ Page({
     const turnRatio = ImageWidth / 600
     let shapes = FaceInfos.map(face => {
       const { X, Y, Width, Height, FaceAttributesInfo } = face
-      if(FaceAttributesInfo.Expression === 0){
+      if (FaceAttributesInfo.Expression === 0) {
         FaceAttributesInfo.Expression = '正常'
-      } else if(FaceAttributesInfo.Expression < 50){
+      } else if (FaceAttributesInfo.Expression < 50) {
         FaceAttributesInfo.Expression = '微笑'
       } else {
         FaceAttributesInfo.Expression = '大小'
       }
 
-      if(FaceAttributesInfo.Glass){
+      if (FaceAttributesInfo.Glass) {
         FaceAttributesInfo.Glass = '有'
       } else {
         FaceAttributesInfo.Glass = '无'
       }
 
-      if(FaceAttributesInfo.Hat){
+      if (FaceAttributesInfo.Hat) {
         FaceAttributesInfo.Hat = '有'
       } else {
         FaceAttributesInfo.Hat = '无'
       }
 
-      if(FaceAttributesInfo.Mask){
+      if (FaceAttributesInfo.Mask) {
         FaceAttributesInfo.Mask = '有'
       } else {
         FaceAttributesInfo.Mask = '无'

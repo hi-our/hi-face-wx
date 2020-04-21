@@ -9,7 +9,7 @@
 			<View class='{{key==index?"face-line right-top-2":"face-line right-top"}}'></View>
 			<View class='{{key==index?"face-line left-bottom-2":"face-line left-bottom"}}'></View>
 			<View class='{{key==index?"face-line right-bottom-2":"face-line right-bottom"}}'></View>
-			<view class="face-attributes-info" wx:if="{{key==index}}" style="margin: 0 {{item.width}}rpx;">
+			<view class="face-attributes-info" wx:if="{{key==index}}" style="margin: 0 {{item.width+10}}rpx;">
 				<text class="face-attributes-info-text">年龄：{{item.FaceAttributesInfo.Age}}</text>
 				<text class="face-attributes-info-text">表情：{{item.FaceAttributesInfo.Expression}}</text>
 				<text class="face-attributes-info-text">魅力：{{item.FaceAttributesInfo.Beauty}}</text>
