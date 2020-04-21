@@ -1,6 +1,6 @@
 <!--miniprogram/pages/face-love/face-love.wxml-->
 <view class="box" style="background:linear-gradient(180deg,{{background}} 0%,rgba(28,37,50,0.7) 77%,rgba(28,37,50,1) 100%)">
-	<view class="navigationBar">人脸识别</view>
+	<view class="navigationBar" style="padding-top:{{navigationBarPaddingTop}}px">人脸识别</view>
 	<view class="pic-Box">
 		<view class="pic-Box2">
 			<image class="default-big-Pic" src="/images/defaultImg.png" mode="aspectFit" wx:if="{{!bigPic}}"></image>

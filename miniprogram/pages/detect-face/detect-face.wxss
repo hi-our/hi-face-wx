@@ -1,17 +1,14 @@
-/* miniprogram/pages/face-love/face-love.wxss */
-
 .box {
   height: 100vh;
 }
 
 .navigationBar {
-  height: 88rpx;
   width: 600rpx;
   color: white;
   font-size: 24px;
   font-weight: 600;
-  padding-top: 88rpx;
   margin: 0 auto;
+  line-height: 44px;
 }
 
 .pic-Box {

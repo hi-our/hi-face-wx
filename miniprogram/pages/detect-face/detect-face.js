@@ -12,6 +12,14 @@ Page({
     textTips: '上传带人脸的正面照'
   },
 
+  onLoad(){
+    const res = wx.getSystemInfoSync()
+    console.log('状态栏高度是：',res.statusBarHeight)
+    this.setData({
+      navigationBarPaddingTop: res.statusBarHeight
+    })
+  },
+  
   async mainFunc() {
 
     try {
