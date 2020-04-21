@@ -101,25 +101,11 @@
   border-top: 2px solid #61E6BD;
 }
 
-.left-top-2 {
-  left: 0;
-  top: 0;
-  border-left: 2px solid #ED4BA6;
-  border-top: 2px solid #ED4BA6;
-}
-
 .right-top {
   right: 0;
   top: 0;
   border-right: 2px solid #61E6BD;
   border-top: 2px solid #61E6BD;
-}
-
-.right-top-2 {
-  right: 0;
-  top: 0;
-  border-right: 2px solid #ED4BA6;
-  border-top: 2px solid #ED4BA6;
 }
 
 .left-bottom {
@@ -129,13 +115,6 @@
   border-bottom: 2px solid #61E6BD;
 }
 
-.left-bottom-2 {
-  left: 0;
-  bottom: 0;
-  border-left: 2px solid #ED4BA6;
-  border-bottom: 2px solid #ED4BA6;
-}
-
 .right-bottom {
   right: 0;
   bottom: 0;
@@ -143,9 +122,6 @@
   border-bottom: 2px solid #61E6BD;
 }
 
-.right-bottom-2 {
-  right: 0;
-  bottom: 0;
-  border-right: 2px solid #ED4BA6;
-  border-bottom: 2px solid #ED4BA6;
+.face-item-active .face-line {
+  border-color: #ED4BA6;
 }

@@ -23,12 +23,12 @@ Page({
         title: '图片处理中...',
       })
 
-      const { safeCheckResults, fileID } = await this.uploadToCloudAndCheck(imgPath)
+      const { safeCheckResults = {}, fileID } = await this.uploadToCloudAndCheck(imgPath)
 
       wx.hideLoading()
 
       // 这里先处理正常的，再处理异常
-      if (safeCheckResults.status === 0) {
+      if (safeCheckResults.status === 0 && fileID) {
         await this.detectImageLabel(fileID)
         return
       }
@@ -64,6 +64,7 @@ Page({
     })
 
     let bigPic = tempFilePaths[0]
+
     this.setData({
       bigPic: bigPic
     })
@@ -82,18 +83,20 @@ Page({
     return { safeCheckResults, fileID }
   },
 
-  //智能缩小
+  // 图像标签
   async detectImageLabel(fileID) {
 
-    const res = await wx.cloud.callFunction({
+    const { result = {} } = await wx.cloud.callFunction({
       name: 'detect-image-label',
       data: {
         fileID: fileID,
       }
     })
 
-    if (res.result.status === 0) {
-      const { list } = res.result.data
+    const { status, data } = result
+
+    if (status === 0) {
+      const { list } = data
       this.setData({
         imgTags: list,
       })
@@ -101,7 +104,7 @@ Page({
     }
 
     wx.showToast({
-      title: '图片校验出错，请重试', // ???
+      title: '图片校验出错，请重试', // TODO 这里为啥是校验图片出错？
       icon: 'none',
       duration: 2000
     })

@@ -12,14 +12,24 @@ Page({
     textTips: '上传带人脸的正面照',
     litPicBorder: 'border: 1px solid #ED4BA6',
     scanPicBorder: 'border: 1px solid #4EC9B0',
-    key: -2,
+    key: -1,
   },
 
   onLoad() {
-    const res = wx.getSystemInfoSync()
+    const { statusBarHeight } = wx.getSystemInfoSync()
     this.setData({
-      navigationBarPaddingTop: res.statusBarHeight
+      navigationBarPaddingTop: statusBarHeight
     })
+  },
+
+  onShareAppMessage: function () {
+    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
+
+    return {
+      title: '人像魅力',
+      imageUrl: DEFAULT_SHARE_COVER,
+      path: '/pages/detect-face/detect-face'
+    }
   },
 
   async mainFunc() {
@@ -57,6 +67,7 @@ Page({
         content: '图片校验出错，请重试',
         showCancel: false,
       })
+
     } catch (err) {
       console.log(err)
       wx.showToast({
@@ -64,6 +75,7 @@ Page({
         icon: 'none',
         duration: 2000,
         success() {
+          // 报错就好了，为啥还要重新渲染页面呢？
           setTimeout(
             wx.reLaunch({
               url: 'pages/detect-face/detect-face',
@@ -75,9 +87,9 @@ Page({
 
   //显示人脸魅力文字
   showMeili(e) {
-    console.log(e)
+
     const { index } = e.currentTarget.dataset
-    console.log(index)
+
     this.setData({
       litPicBorder: 'border: 1px solid #4EC9B0',
       key: index,
@@ -130,7 +142,29 @@ Page({
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
     const turnRatio = ImageWidth / 600
     let shapes = FaceInfos.map(face => {
-      const { X, Y, Width, Height, FaceAttributesInfo } = face
+      const { X, Y, Width, Height, FaceAttributesInfo = {} } = face
+
+      // TODO 这里请重新解构,然后注意前端变量是要小驼峰式（首字母小写），而不是大驼峰式
+      // const { Expression, Glass, Hat, Mask } = FaceAttributesInfo
+
+      /* 
+      return {
+        shapeIndex,
+        left: X,
+        top: Y,
+        width: Width,
+        height: Height,
+        age: Age,
+        genderStr: GENDER_STATUS[Gender],
+        expressionStr: EXPRESS_MOOD[parseInt(Expression / 10, 10)],
+        beauty: Beauty,
+        glassStr: HAVE_STATUS[Number(Glass)],
+        hatStr: HAVE_STATUS[Number(Hat)],
+        maskStr: HAVE_STATUS[Number(Mask)],
+      }
+      */
+
+
       if (FaceAttributesInfo.Expression === 0) {
         FaceAttributesInfo.Expression = '正常'
       } else if (FaceAttributesInfo.Expression < 50) {
@@ -189,12 +223,6 @@ Page({
     const { RGB = '', base64Mains = [] } = results.result
     const background = RGB.replace('0x', '#')
 
-    //更改视图层的主色调
-    // wx.setNavigationBarColor({
-    //   backgroundColor: background,
-    //   frontColor: '#ffffff',
-    // })
-
     //将base64Main展示在视图层
     let facePics = base64Mains.map(item => `data:image/png;base64,${item}`)
 
@@ -202,15 +230,5 @@ Page({
       background,
       facePics
     })
-  },
-
-  onShareAppMessage: function () {
-    const DEFAULT_SHARE_COVER = 'https://n1image.hjfile.cn/res7/2020/02/02/a374bb58c4402a90eeb07b1abbb95916.png'
-
-    return {
-      title: '人像魅力',
-      imageUrl: DEFAULT_SHARE_COVER,
-      path: '/pages/detect-face/detect-face'
-    }
   },
 })
