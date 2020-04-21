@@ -13,8 +13,8 @@
 	</view>
 	<view class="text-tips">{{textTips}}</view>
 	<scroll-view class="scan-pic" scroll-x wx:if="{{facePics.length>0}}">
-		<image class="lit-pic" src="{{litPic}}" mode="aspectFit"></image>
-		<image wx:for="{{facePics}}" wx:key="index" class="lit-pic" src="{{item}}" mode="aspectFit"></image>
+		<image class="lit-pic" src="{{litPic}}" mode="aspectFit" style="{{litPicBorder}}"></image>
+		<image wx:for="{{facePics}}" wx:key="index" class="lit-pic" src="{{item}}" mode="aspectFit" style='{{key==index?"border:1px solid #ED4BA6;":"border:1px solid #4EC9B0"}}' bindtap="showMeili" data-index="{{index}}"></image>
 	</scroll-view>
 	<view class="upload" bindtap="mainFunc">
 		<image class="upload-img" src="/images/upload-img.png"></image>上传

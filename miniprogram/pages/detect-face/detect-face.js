@@ -9,16 +9,18 @@ Page({
     litPic: '',
     facePics: [],
     background: 'rgb(142, 147, 154)',
-    textTips: '上传带人脸的正面照'
+    textTips: '上传带人脸的正面照',
+    litPicBorder: 'border: 1px solid #ED4BA6',
+    scanPicBorder: 'border: 1px solid #4EC9B0'
   },
 
-  onLoad(){
+  onLoad() {
     const res = wx.getSystemInfoSync()
     this.setData({
       navigationBarPaddingTop: res.statusBarHeight
     })
   },
-  
+
   async mainFunc() {
 
     try {
@@ -68,6 +70,18 @@ Page({
         }
       })
     }
+  },
+
+  //显示人脸魅力文字
+  showMeili(e) {
+    console.log(e)
+    const { index } = e.currentTarget.dataset
+    console.log(index)
+    const temp_str = "facePics[" + index + "]"
+    this.setData({
+      litPicBorder: 'border: 1px solid #4EC9B0',
+      key: index
+    })
   },
 
   //选择图片
