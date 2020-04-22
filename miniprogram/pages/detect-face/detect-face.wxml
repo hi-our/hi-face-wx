@@ -10,13 +10,13 @@
 			<View class='face-line left-bottom'></View>
 			<View class='face-line right-bottom'></View>
 			<!-- 这里要改掉 -->
-			<view class="face-attributes-info" wx:if="{{key==index}}" style="margin: 0 {{item.width+10}}rpx;">
-				<text class="text">年龄：{{item.age}}</text>
-				<text class="text">表情：{{item.expression}}</text>
-				<text class="text">魅力：{{item.beauty}}</text>
-				<text class="text">眼镜：{{item.glass}}</text>
-				<text class="text">帽子：{{item.hat}}</text>
-				<text class="text">口罩：{{item.mask}}</text>
+			<view class="face-attributes" wx:if="{{key==index}}" style="margin: 0 {{item.width+10}}rpx;">
+				<text class="text-1">年龄：{{item.age}}</text>
+				<text class="text-1">表情：{{item.expression}}</text>
+				<text class="text-1">魅力：{{item.beauty}}</text>
+				<text class="text-1">眼镜：{{item.glass}}</text>
+				<text class="text-1">帽子：{{item.hat}}</text>
+				<text class="text-1">口罩：{{item.mask}}</text>
 			</view>
 		</view>
 	</view>

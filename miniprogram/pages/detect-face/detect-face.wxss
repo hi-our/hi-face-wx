@@ -31,14 +31,14 @@
   height: 600rpx;
 }
 
-.face-attributes-info {
+.face-attributes {
   position: absolute;
   background-color: #61E6BD;
   width: 230rpx;
   padding: 10rpx;
 }
 
-.face-attributes-info .text {
+.text-1 {
   display: block;
 }
 
