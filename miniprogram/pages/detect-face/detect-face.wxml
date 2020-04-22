@@ -10,7 +10,7 @@
 			<View class='face-line left-bottom'></View>
 			<View class='face-line right-bottom'></View>
 			<!-- 这里要改掉 -->
-			<view class="face-attributes" wx:if="{{key==index}}" style="margin: 0 {{item.width+10}}rpx;">
+			<view class="face-attributes" wx:if="{{key==index}}" style="{{item.x+item.width+230>600? 'right: '+(item.x-item.width-230)+'rpx;':'margin: 0 '+(item.width+10)+'rpx'}}">
 				<text class="text-1">年龄：{{item.age}}</text>
 				<text class="text-1">表情：{{item.expression}}</text>
 				<text class="text-1">魅力：{{item.beauty}}</text>
