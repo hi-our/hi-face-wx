@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/christmas-hat/christmas-hat",
     "pages/detect-face/detect-face",
     "pages/image-tag/image-tag",
     "pages/smart-crop/smart-crop",
-    "pages/christmas-hat/christmas-hat",
     "pages/thanks/thanks"
   ],
   "tabBar": {
@@ -17,6 +17,24 @@
         "text": "圣诞帽",
         "iconPath": "images/mask-1.png",
         "selectedIconPath": "images/mask-2.png"
+      },
+      {
+        "pagePath": "pages/smart-crop/smart-crop",
+        "text": "智能裁剪",
+        "iconPath": "images/smart-crop-1.png",
+        "selectedIconPath": "images/smart-crop-2.png"
+      },
+      {
+        "pagePath": "pages/image-tag/image-tag",
+        "text": "图像标签",
+        "iconPath": "images/image-tag-1.png",
+        "selectedIconPath": "images/image-tag-2.png"
+      },
+      {
+        "pagePath": "pages/detect-face/detect-face",
+        "text": "人像魅力",
+        "iconPath": "images/detect-face-1.png",
+        "selectedIconPath": "images/detect-face-2.png"
       },
       {
         "pagePath": "pages/thanks/thanks",

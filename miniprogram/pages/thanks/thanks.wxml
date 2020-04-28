@@ -25,6 +25,6 @@
         </view>
       </view>
     </view>
-    <view class="version">Ver.{{version}}，基于 Taro 及小程序云开发</view>
+    <view class="version">Ver.{{version}}，基于 原生 及小程序云开发</view>
   </view>
 </view>
