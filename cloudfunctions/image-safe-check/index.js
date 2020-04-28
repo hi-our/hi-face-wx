@@ -2,7 +2,7 @@ const extCi = require("@cloudbase/extension-ci");
 const tcb = require("tcb-admin-node");
 
 tcb.init({
-  env: process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
+  env: process.env.TCB_ENV === 'local' ? 'production-nagw3' : process.env.TCB_ENV
 })
 
 tcb.registerExtension(extCi);

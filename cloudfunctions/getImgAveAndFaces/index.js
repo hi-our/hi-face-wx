@@ -1,7 +1,7 @@
 const tcb = require('tcb-admin-node')
 const fetch = require('axios')
 
-let env = process.env.TCB_ENV === 'local' ? 'development-9p1it' : process.env.TCB_ENV
+let env = process.env.TCB_ENV === 'local' ? 'production-nagw3' : process.env.TCB_ENV
 
 tcb.init({
   env
