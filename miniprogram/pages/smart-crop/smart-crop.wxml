@@ -1,20 +1,13 @@
 <view class="box">
-	<view class="text-Box">
-		<text class="description-1">智能裁剪</text>
-		<text class="description">--------</text>
-		<text class="description">上传带有人像的照片，智能裁剪可以防止人像被切割，从而获得更好的缩略图体验</text>
-	</view>
-	
-	<view class="pic-Box">
-		<image class="big-Pic" src="{{bigPic}}" mode="widthFix"></image>
-	</view>
-	<view class="scan-Pic">
-		<image class="face-Scaned-1" src="{{faceScaned1}}" mode="aspectFit"></image>
-		<image class="face-Scaned-2" src="{{faceScaned2}}" mode="aspectFit"></image>
-		<image class="face-Scaned-3" src="{{faceScaned3}}" mode="aspectFit"></image>
-	</view>
-	<view class="upload" bindtap="mainFunc">
-		<image class="uploa-img" src="/images/upload-img.png"></image>
-		<text class="upload-font">上传</text>
-	</view>
+  <view class="text-box">上传带有人像的照片，智能裁剪可以防止人像被切割，从而获得更好的缩略图体验</view>
+  
+  <image class="big-pic" src="{{bigPic}}" mode="widthFix"></image>
+  <view class="scan-pic">
+    <image class="face-1" src="{{faceScaned1}}"></image>
+    <image class="face-2" src="{{faceScaned2}}"></image>
+    <image class="face-3" src="{{faceScaned3}}"></image>
+  </view>
+  <view class="upload" bindtap="mainFunc">
+    <image class="uploa-img" src="/images/upload-img.png"></image>上传
+  </view>
 </view>
