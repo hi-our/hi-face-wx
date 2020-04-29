@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cloudbase/extension-ci": "0.1.0",
+    "@cloudbase/extension-ci": "0.1.2",
     "tcb-admin-node": "latest",
     "wx-server-sdk": "latest"
   }

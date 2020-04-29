@@ -2,7 +2,7 @@ const extCi = require("@cloudbase/extension-ci");
 const tcb = require("tcb-admin-node");
 
 tcb.init({
-  env: process.env.TCB_ENV === 'local' ? 'production-nagw3' : process.env.TCB_ENV
+  env: 'production-nagw3'
 })
 
 tcb.registerExtension(extCi);
@@ -59,27 +59,30 @@ const getCheckResult =(data) => {
 async function imgSecCheck(event) {
   const { fileID } = event
   if (!fileID) {
-    console.log('请设置fileID :');
+    console.log('请设置fileID :')
+    // TODO 这里要改
     return 
   }
 
   try {
-    imgID = fileID.replace('cloud://', '')
+    let imgID = fileID.replace('cloud://', '')
     let index = imgID.indexOf('/')
-    imgID = imgID.substr(index)
+    let cloudPath = imgID.substr(index)
+    console.log('cloudPath :>> ', fileID, cloudPath);
 
 
     const res = await tcb.invokeExtension('CloudInfinite', {
       action: 'DetectType',
-      cloudPath: imgID, //需要分析的图像的绝对路径
+      cloudPath: cloudPath, //需要分析的图像的绝对路径
       operations: { type: ["porn", "terrorist", "politics"] }
     })
 
     let data = getResCode(res)
-    result = getCheckResult(data)
-    return result
+
+    return getCheckResult(data)
   } catch (error) {
     console.log('error :', error)
+    // TODO，这里的返回错误也可以改一改
     return error
   }
 }

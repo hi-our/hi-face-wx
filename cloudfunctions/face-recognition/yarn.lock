@@ -12,10 +12,10 @@
     lodash.set "4.3.2"
     lodash.unset "4.5.2"
 
-"@cloudbase/extension-ci@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@cloudbase/extension-ci/-/extension-ci-0.1.0.tgz#c857b3727f73593de5653ad82b855949b4952c6c"
-  integrity sha512-MzenCwKiTLzgowTT74GjTOy/zRUlbcywr72IMDEq860gyknOzmnP1qtQBg7ptVHb/xYGFqJQ3hltLZDnC7HwOA==
+"@cloudbase/extension-ci@0.1.2":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@cloudbase/extension-ci/-/extension-ci-0.2.0.tgz#77727e0f18beb1d8f3788cd661dc4164ffbc9db8"
+  integrity sha512-1l1TIHxp+NV7+eFPLycJxcxso+68w4Pxe+/JbfEL8gtd8MuemER9qg5I0/uaHWN1Fl4c2n7sWgd9KkmhjGxAug==
   dependencies:
     fast-xml-parser "^3.16.0"
     js-base64 "^2.5.2"
