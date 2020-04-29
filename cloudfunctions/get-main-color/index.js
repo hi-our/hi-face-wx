@@ -1,10 +1,10 @@
 const tcb = require('tcb-admin-node')
 const fetch = require('axios')
 
-let env = process.env.TCB_ENV === 'local' ? 'development-v9y2f' : process.env.TCB_ENV
+let env = process.env.TCB_ENV === 'local' ? 'production-nagw3' : process.env.TCB_ENV
 
 tcb.init({
-  env
+  env: 'production-nagw3'
 })
 
 function hexToRgba(hex = '', opacity) {

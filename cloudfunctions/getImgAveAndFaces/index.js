@@ -4,7 +4,7 @@ const fetch = require('axios')
 let env = process.env.TCB_ENV === 'local' ? 'production-nagw3' : process.env.TCB_ENV
 
 tcb.init({
-  env
+  env: 'production-nagw3'
 })
 
 exports.main = async (event, context) => {

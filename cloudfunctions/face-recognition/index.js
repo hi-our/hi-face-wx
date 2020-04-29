@@ -5,8 +5,10 @@ const detectFace = require('./req-iai-face').detectFace
 
 let env = process.env.TCB_ENV === 'local' ? 'production-nagw3' : process.env.TCB_ENV
 
+let nowEnv = tcb.getCurrentEnv()
+
 tcb.init({
-  env
+  env: 'production-nagw3'
 })
 tcb.registerExtension(extCi)
 
@@ -99,6 +101,6 @@ exports.main = async (event) => {
     data: {},
     time: new Date(),
     status: -10086,
-    message: errorString
+    message: nowEnv + ' ' + errorString
   }
 }

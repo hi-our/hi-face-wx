@@ -93,7 +93,7 @@ Page({
       }
     })
 
-    const { status, data } = result
+    const { status, data, message } = result
 
     if (status === 0) {
       const { list } = data
@@ -102,6 +102,8 @@ Page({
       })
       return
     }
+
+    console.log('error message :>> ', message)
 
     wx.showToast({
       title: '出现错误，请重试',

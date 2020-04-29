@@ -29,6 +29,7 @@
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"compileType": "miniprogram",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -77,6 +78,13 @@
 					"id": -1,
 					"name": "pages/image-tag/image-tag",
 					"pathName": "pages/image-tag/image-tag",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/detect-face/detect-face",
+					"pathName": "pages/detect-face/detect-face",
 					"query": "",
 					"scene": null
 				}

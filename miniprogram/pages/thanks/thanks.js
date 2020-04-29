@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageStatus: 'loading'
+    pageStatus: 'loading',
+    version: '0.1.0',
   },
 
   /**

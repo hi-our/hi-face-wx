@@ -1,7 +1,8 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 const tencentcloud = require("tencentcloud-sdk-nodejs");
-const config = require('./config');
+const config = require('./config.js')
+
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
@@ -35,14 +36,17 @@ async function faceImgCheck(params1) {
   req.from_json_string(params);
   return new Promise(function (resolve, reject) {
     client.DetectFace(req, function (errMsg, response) {
+      console.log('errMsg :>> ', errMsg);
       if (errMsg) {
         console.log(errMsg);
-        reject({ 'errCode': 1, 'errMsg': '面部识别云函数出现错误啦' })
+        reject({
+          'errCode': 1, 
+          'errMsg': '面部识别出现错误:' + errMsg
+        })
       }
-      console.log(response.to_json_string());
-      console.log(response)
+      console.log('response', response)
       resolve(response)
-    });
+    })
   })
 };
 
@@ -65,7 +69,13 @@ exports.main = async (event, context) => {
 
   if (tempFileURL) {
     const params = { 'MaxFaceNum': 10, 'Url': tempFileURL, 'NeedFaceAttributes': 1 }
-    return faceImgCheck(params)
+    try {
+      let result = await faceImgCheck(params)
+      return result
+    } catch (error) {
+      console.log('error :>> ', error);
+      return error
+    }
   } else {
     return { 'errCode': 1, 'errMsg': '请传入fileID' }
   }

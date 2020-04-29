@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/christmas-hat/christmas-hat",
     "pages/detect-face/detect-face",
+    "pages/christmas-hat/christmas-hat",
     "pages/image-tag/image-tag",
     "pages/smart-crop/smart-crop",
     "pages/thanks/thanks"
@@ -25,16 +25,16 @@
         "selectedIconPath": "images/smart-crop-2.png"
       },
       {
-        "pagePath": "pages/image-tag/image-tag",
-        "text": "图像标签",
-        "iconPath": "images/image-tag-1.png",
-        "selectedIconPath": "images/image-tag-2.png"
-      },
-      {
         "pagePath": "pages/detect-face/detect-face",
         "text": "人像魅力",
         "iconPath": "images/detect-face-1.png",
         "selectedIconPath": "images/detect-face-2.png"
+      },
+      {
+        "pagePath": "pages/image-tag/image-tag",
+        "text": "图像标签",
+        "iconPath": "images/image-tag-1.png",
+        "selectedIconPath": "images/image-tag-2.png"
       },
       {
         "pagePath": "pages/thanks/thanks",
@@ -48,7 +48,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "女神帽",
+    "navigationBarTitleText": "Hi帅照",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

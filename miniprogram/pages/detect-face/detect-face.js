@@ -12,7 +12,7 @@ Page({
     textTips: '上传带人脸的正面照',
     litPicBorder: 'border: 1px solid #ED4BA6',
     scanPicBorder: 'border: 1px solid #4EC9B0',
-    key: -1,
+    currentShapeIndex: -1,
   },
 
   onLoad() {
@@ -80,20 +80,20 @@ Page({
 
   //显示人脸魅力文字
   showMeili(e) {
-    const key = this.data.key
+    const currentShapeIndex = this.data.currentShapeIndex
     const { index } = e.currentTarget.dataset
 
-    if (key == index) {
+    if (currentShapeIndex == index) {
       this.setData({
-        key: -1
+        currentShapeIndex: -1
       })
       return
     }
 
-    if (key >= -1) {
+    if (currentShapeIndex >= -1) {
       this.setData({
         litPicBorder: 'border: 1px solid #4EC9B0',
-        key: index,
+        currentShapeIndex: index,
       })
       return
     }
@@ -101,7 +101,7 @@ Page({
 
   showPic(){
     this.setData({
-      key: -1,
+      currentShapeIndex: -1,
       litPicBorder:'border: 1px solid #ED4BA6'
     })
   },
@@ -147,7 +147,15 @@ Page({
   async findFacesInImg(fileID) {
 
     //图片正常，调用人脸识别，拿到识别到的面部宽高和在图片的位置
-    const { FaceInfos, ImageWidth } = await faceDetect(fileID)
+    const { FaceInfos, ImageWidth, errCode, errMsg } = await faceDetect(fileID)
+
+    if (errCode) {
+      wx.showToast({
+        icon: 'none',
+        title: errMsg
+      })
+      return
+    }
 
     //根据拿到的位置信息，在原图（bigPic）中加上人脸框
     const turnRatio = ImageWidth / 600
