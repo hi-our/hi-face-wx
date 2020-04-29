@@ -77,6 +77,7 @@
 					"id": -1,
 					"name": "pages/image-tag/image-tag",
 					"pathName": "pages/image-tag/image-tag",
+					"query": "",
 					"scene": null
 				}
 			]

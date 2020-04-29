@@ -1,14 +1,19 @@
-// 云函数入口文件
-const cloud = require('wx-server-sdk')
+// // 云函数入口文件
+// const cloud = require('wx-server-sdk')
 
-cloud.init()
+
+// cloud.init({
+//   env: cloud.DYNAMIC_CURRENT_ENV
+// })
+
+// console.log('2 :>> ', 3);
 
 const data = {
   thanksWord: '感谢我家小雪的默默支持及照顾。\n感谢老娘舅群小伙伴的支持，包括范老师、苏老师、拉总、俊总。\n感谢公司小伙伴的支持，包括华翔、Coco。',
   authorAvatar: 'https://n1image.hjfile.cn/res7/2020/02/02/19ad178fc9dc54eca7b050a6ad3077d0.jpg',
   authorName: '小溪里',
-  authorDesc: 'Blog: xiaoxili.com\nEmail: shenghanqin@163.com\nGitHub: github.com/shenghanqin',
-  sourceLink: 'https://github.com/shenghanqin/goddess-hat',
+  authorDesc: 'Blog: xiaoxili.com\nEmail: shenghanqin@163.com\nGitHub: github.com/hi-our',
+  sourceLink: 'https://github.com/hi-our/hi-face',
   referenceList: [
     {
       image: 'https://n1image.hjfile.cn/res7/2020/02/04/d6fec5814eb7f6d5f058942ca5e5f9b6.png',
@@ -32,6 +37,11 @@ const data = {
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  // const a = await cloud.callFunction({
+  //   name: 'get-main-color',
+  //   data: {}
+  // })
+
   return {
     data,
     time: new Date(),
